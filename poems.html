@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poems — Teja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #12100E;
+    --paper: #F0E9DC;
+    --ink: #F0E9DC;
+    --dim: #8F887F;
+    --rule: #2A2622;
+    --accent: #D4A24C;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding: 0 24px;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 88px 0 128px; }
+
+  header.mast {
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 56px;
+  }
+  .eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  h1.title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(56px, 12vw, 112px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 144;
+    margin-bottom: 20px;
+  }
+  .lede {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 17px;
+    color: var(--dim);
+    font-variation-settings: "opsz" 18;
+  }
+
+  /* TOC */
+  nav.toc {
+    margin-bottom: 88px;
+    padding: 24px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .toc-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    text-transform: lowercase;
+    margin-bottom: 16px;
+  }
+  .toc ol {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    counter-reset: item;
+  }
+  .toc li { counter-increment: item; }
+  .toc a {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    color: var(--paper);
+    text-decoration: none;
+    transition: color 0.15s;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    font-variation-settings: "opsz" 18;
+  }
+  .toc a::before {
+    content: counter(item, decimal-leading-zero);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--accent);
+    min-width: 24px;
+    font-variation-settings: "opsz" 14;
+  }
+  .toc a:hover { color: var(--accent); }
+  .toc a em {
+    font-style: italic;
+    color: var(--dim);
+    font-size: 14px;
+    margin-left: 6px;
+  }
+
+  /* Poems */
+  article.poem {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--rule);
+    scroll-margin-top: 40px;
+  }
+  article.poem:last-of-type { border-bottom: none; }
+
+  .poem-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-variation-settings: "opsz" 14;
+  }
+  h2.poem-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 5vw, 44px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+    font-variation-settings: "opsz" 72;
+  }
+  .poem-meta {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--dim);
+    margin-bottom: 40px;
+    font-variation-settings: "opsz" 16;
+  }
+
+  .poem-body {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--paper);
+    font-variation-settings: "opsz" 18;
+    white-space: pre-line;
+  }
+  .stanza { margin-bottom: 28px; }
+  .stanza:last-child { margin-bottom: 0; }
+
+  /* Back to top */
+  .back {
+    display: inline-block;
+    margin-top: 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--dim);
+    text-decoration: none;
+    text-transform: lowercase;
+    transition: color 0.15s;
+  }
+  .back:hover { color: var(--accent); }
+
+  footer {
+    margin-top: 88px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--dim);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 0 20px; }
+    .wrap { padding: 56px 0 96px; }
+    article.poem { padding: 56px 0; }
+    .poem-body { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="mast">
+  <div class="eyebrow">poems that stayed · from the syllabus and beyond</div>
+  <h1 class="title">Poems.</h1>
+  <p class="lede">Some were assigned in school and refused to leave. Some found their way in later. Kept here so they aren't scattered.</p>
+</header>
+
+<nav class="toc">
+  <div class="toc-label">contents</div>
+  <ol>
+    <li><a href="#p1">Where the Mind is Without Fear <em>— Tagore</em></a></li>
+    <li><a href="#p2">In the Bazaars of Hyderabad <em>— Naidu</em></a></li>
+    <li><a href="#p3">A Psalm of Life <em>— Longfellow</em></a></li>
+    <li><a href="#p4">The Inchcape Rock <em>— Southey</em></a></li>
+    <li><a href="#p5">A Small Pain in My Chest <em>— anonymous</em></a></li>
+    <li><a href="#p6">Stopping by Woods on a Snowy Evening <em>— Frost</em></a></li>
+    <li><a href="#p7">The Professor <em>— Ezekiel</em></a></li>
+  </ol>
+</nav>
+
+<article class="poem" id="p1">
+  <div class="poem-num">01</div>
+  <h2 class="poem-title">Where the Mind is Without Fear</h2>
+  <div class="poem-meta">Rabindranath Tagore · 1910</div>
+  <div class="poem-body"><div class="stanza">Where the mind is without fear and the head is held high
+Where knowledge is free
+Where the world has not been broken up into fragments
+By narrow domestic walls
+Where words come out from the depth of truth
+Where tireless striving stretches its arms towards perfection
+Where the clear stream of reason has not lost its way
+Into the dreary desert sand of dead habit
+Where the mind is led forward by thee
+Into ever-widening thought and action
+Into that heaven of freedom, my Father, let my country awake.</div></div>
+  <a href="#top" class="back">↑ back to top</a>
+</article>
+
+<article class="poem" id="p2">
+  <div class="poem-num">02</div>
+  <h2 class="poem-title">In the Bazaars of Hyderabad</h2>
+  <div class="poem-meta">Sarojini Naidu · 1912</div>
+  <div class="poem-body"><div class="stanza">What do you sell, O ye merchants?
+Richly your wares are displayed.
+Turbans of crimson and silver,
+Tunics of purple brocade,
+Mirrors with panels of amber,
+Daggers with handles of jade.</div><div class="stanza">What do you weigh, O ye vendors?
+Saffron and lentil and rice.
+What do you grind, O ye maidens?
+Sandalwood, henna, and spice.
+What do you call, O ye pedlars?
+Chessmen and ivory dice.</div><div class="stanza">What do you make, O ye goldsmiths?
+Wristlet and anklet and ring,
+Bells for the feet of blue pigeons,
+Frail as a dragon-fly's wing,
+Girdles of gold for dancers,
+Scabbards of gold for the king.</div><div class="stanza">What do you cry, O ye fruitmen?
+Citron, pomegranate, and plum.
+What do you play, O musicians?
+Cithar, sarangi and drum.
+What do you chant, O magicians?
+Spells for aeons to come.</div><div class="stanza">What do you weave, O ye flower-girls
+With tassels of azure and red?
+Crowns for the brow of a bridegroom,
+Chaplets to garland his bed.
+Sheets of white blossoms new-garnered
+To perfume the sleep of the dead.</div></div>
+  <a href="#top" class="back">↑ back to top</a>
+</article>
+
+<article class="poem" id="p3">
+  <div class="poem-num">03</div>
+  <h2 class="poem-title">A Psalm of Life</h2>
+  <div class="poem-meta">Henry Wadsworth Longfellow · 1838 · <span style="font-style: normal;">what the heart of the young man said to the psalmist</span></div>
+  <div class="poem-body"><div class="stanza">Tell me not, in mournful numbers,
+Life is but an empty dream!
+For the soul is dead that slumbers,
+And things are not what they seem.</div><div class="stanza">Life is real! Life is earnest!
+And the grave is not its goal;
+Dust thou art, to dust returnest,
+Was not spoken of the soul.</div><div class="stanza">Not enjoyment, and not sorrow,
+Is our destined end or way;
+But to act, that each to-morrow
+Find us farther than to-day.</div><div class="stanza">Art is long, and Time is fleeting,
+And our hearts, though stout and brave,
+Still, like muffled drums, are beating
+Funeral marches to the grave.</div><div class="stanza">In the world's broad field of battle,
+In the bivouac of Life,
+Be not like dumb, driven cattle!
+Be a hero in the strife!</div><div class="stanza">Trust no Future, howe'er pleasant!
+Let the dead Past bury its dead!
+Act,— act in the living Present!
+Heart within, and God o'erhead!</div><div class="stanza">Lives of great men all remind us
+We can make our lives sublime,
+And, departing, leave behind us
+Footprints on the sands of time;</div><div class="stanza">Footprints, that perhaps another,
+Sailing o'er life's solemn main,
+A forlorn and shipwrecked brother,
+Seeing, shall take heart again.</div><div class="stanza">Let us, then, be up and doing,
+With a heart for any fate;
+Still achieving, still pursuing,
+Learn to labor and to wait.</div></div>
+  <a href="#top" class="back">↑ back to top</a>
+</article>
+
+<article class="poem" id="p4">
+  <div class="poem-num">04</div>
+  <h2 class="poem-title">The Inchcape Rock</h2>
+  <div class="poem-meta">Robert Southey · 1802</div>
+  <div class="poem-body"><div class="stanza">No stir in the air, no stir in the sea,
+The Ship was still as she could be;
+Her sails from heaven received no motion,
+Her keel was steady in the ocean.</div><div class="stanza">Without either sign or sound of their shock,
+The waves flow'd over the Inchcape Rock;
+So little they rose, so little they fell,
+They did not move the Inchcape Bell.</div><div class="stanza">The worthy Abbot of Aberbrothok
+Had placed that bell on the Inchcape Rock;
+On a buoy in the storm it floated and swung,
+And over the waves its warning rung.</div><div class="stanza">When the Rock was hid by the surge's swell,
+The Mariners heard the warning Bell;
+And then they knew the perilous Rock,
+And blest the Abbot of Aberbrothok.</div><div class="stanza">The Sun in the heaven was shining gay,
+All things were joyful on that day;
+The sea-birds scream'd as they wheel'd round,
+And there was joyaunce in their sound.</div><div class="stanza">The buoy of the Inchcape Bell was seen
+A darker speck on the ocean green;
+Sir Ralph the Rover walk'd his deck,
+And fix'd his eye on the darker speck.</div><div class="stanza">He felt the cheering power of spring,
+It made him whistle, it made him sing;
+His heart was mirthful to excess,
+But the Rover's mirth was wickedness.</div><div class="stanza">His eye was on the Inchcape Float;
+Quoth he, "My men, put out the boat,
+And row me to the Inchcape Rock,
+And I'll plague the Abbot of Aberbrothok."</div><div class="stanza">The boat is lower'd, the boatmen row,
+And to the Inchcape Rock they go;
+Sir Ralph bent over from the boat,
+And he cut the bell from the Inchcape Float.</div><div class="stanza">Down sank the Bell with a gurgling sound,
+The bubbles rose and burst around;
+Quoth Sir Ralph, "The next who comes to the Rock,
+Won't bless the Abbot of Aberbrothok."</div><div class="stanza">Sir Ralph the Rover sail'd away,
+He scour'd the seas for many a day;
+And now grown rich with plunder'd store,
+He steers his course for Scotland's shore.</div><div class="stanza">So thick a haze o'erspreads the sky,
+They cannot see the sun on high;
+The wind hath blown a gale all day,
+At evening it hath died away.</div><div class="stanza">On the deck the Rover takes his stand,
+So dark it is they see no land.
+Quoth Sir Ralph, "It will be lighter soon,
+For there is the dawn of the rising Moon."</div><div class="stanza">"Canst hear," said one, "the breakers roar?
+For methinks we should be near the shore."
+"Now, where we are I cannot tell,
+But I wish we could hear the Inchcape Bell."</div><div class="stanza">They hear no sound, the swell is strong,
+Though the wind hath fallen they drift along;
+Till the vessel strikes with a shivering shock,
+"Oh Christ! It is the Inchcape Rock!"</div><div class="stanza">Sir Ralph the Rover tore his hair,
+He curst himself in his despair;
+The waves rush in on every side,
+The ship is sinking beneath the tide.</div><div class="stanza">But even is his dying fear,
+One dreadful sound could the Rover hear;
+A sound as if with the Inchcape Bell,
+The Devil below was ringing his knell.</div></div>
+  <a href="#top" class="back">↑ back to top</a>
+</article>
+
+<article class="poem" id="p5">
+  <div class="poem-num">05</div>
+  <h2 class="poem-title">A Small Pain in My Chest</h2>
+  <div class="poem-meta">anonymous · widely attributed to a Vietnam war veteran</div>
+  <div class="poem-body"><div class="stanza">The soldier boy was sitting calmly underneath that tree.
+As I approached it, I could see him beckoning to me.
+The battle had been long and hard and lasted through the night
+And scores of figures on the ground lay still by morning's light.</div><div class="stanza">"I wonder if you'd help me, sir," he smiled as best he could.
+"A sip of water on this morn would surely do me good.
+We fought all day and fought all night with scarcely any rest —
+A sip of water for I have a small pain in my chest."</div><div class="stanza">As I looked at him, I could see the large stain on his shirt
+All reddish-brown from his warm blood mixed in with Asian dirt.
+"Not much," said he. "I count myself more lucky than the rest.
+They're all gone while I just have a small pain in my chest."</div><div class="stanza">"Must be fatigue," he weakly smiled. "I must be getting old.
+I see the sun is shining bright and yet I'm feeling cold.
+We climbed the hill, two hundred strong, but as we cleared the crest,
+The night exploded and I felt this small pain in my chest."</div><div class="stanza">"I looked around to get some aid — the only things I found
+Were big, deep craters in the earth — bodies on the ground.
+I kept on firing at them, sir. I tried to do my best,
+But finally sat down with this small pain in my chest."</div><div class="stanza">"I'm grateful, sir," he whispered, as I handed my canteen
+And smiled a smile that was, I think, the brightest that I've seen.
+"Seems silly that a man my size so full of vim and zest,
+Could find himself defeated by a small pain in his chest."</div><div class="stanza">"What would my wife be thinking of her man so strong and grown,
+If she could see me sitting here, too weak to stand alone?
+Could my mother have imagined, as she held me to her breast,
+That I'd be sitting here one day with this pain in my chest?"</div><div class="stanza">"Can it be getting dark so soon?" He winced up at the sun.
+"It's growing dim and I thought that the day had just begun.
+I think, before I travel on, I'll get a little rest.........."
+And, quietly, the boy died from that small pain in his chest.</div><div class="stanza">I don't recall what happened then. I think I must have cried;
+I put my arms around him and I pulled him to my side.
+And, as I held him to me, I could feel our wounds were pressed —
+The large one in my heart against the small one in his chest.</div></div>
+  <a href="#top" class="back">↑ back to top</a>
+</article>
+
+<article class="poem" id="p6">
+  <div class="poem-num">06</div>
+  <h2 class="poem-title">Stopping by Woods on a Snowy Evening</h2>
+  <div class="poem-meta">Robert Frost · 1923</div>
+  <div class="poem-body"><div class="stanza">Whose woods these are I think I know.
+His house is in the village though;
+He will not see me stopping here
+To watch his woods fill up with snow.</div><div class="stanza">My little horse must think it queer
+To stop without a farmhouse near
+Between the woods and frozen lake
+The darkest evening of the year.</div><div class="stanza">He gives his harness bells a shake
+To ask if there is some mistake.
+The only other sound's the sweep
+Of easy wind and downy flake.</div><div class="stanza">The woods are lovely, dark and deep,
+But I have promises to keep,
+And miles to go before I sleep,
+And miles to go before I sleep.</div></div>
+  <a href="#top" class="back">↑ back to top</a>
+</article>
+
+<article class="poem" id="p7">
+  <div class="poem-num">07</div>
+  <h2 class="poem-title">The Professor</h2>
+  <div class="poem-meta">Nissim Ezekiel · 1965</div>
+  <div class="poem-body"><div class="stanza">Remember me? I am Professor Sheth.
+Once I taught you geography. Now
+I am retired, though my health is good.
+My wife died some years back.
+By God's grace, all my children
+Are well settled in life.
+One is Sales Manager,
+One is Bank Manager,
+Both have cars.
+Other also doing well, though not so well.
+Every family must have black sheep.
+Sarala and Tarala are married,
+Their husbands are very nice boys.
+You won't believe but I have eleven grandchildren.
+How many issues you have? Three?
+That is good. These are days of family planning.
+I am not against. We have to change with times.
+Whole world is changing. In India also
+We are keeping up. Our progress is progressing.
+Old values are going, new values are coming.
+Everything is happening with leaps and bounds.
+I am going out rarely, now and then
+Only, this is price of old age.
+But my health is O.K. Usual aches and pains.
+No diabetes, no blood pressure, no heart attack.
+This is because of sound habits in youth.
+How is your health keeping?
+Nicely? I am happy for that.
+This year I am sixty-nine
+and hope to score a century.
+You were so thin, like stick,
+Now you are man of weight and consequence.
+That is good joke.
+If you are coming again this side by chance,
+Visit please my humble residence also.
+I am living just on opposite house's backside.</div></div>
+  <a href="#top" class="back">↑ back to top</a>
+</article>
+
+<footer>
+  <span>a small archive · Teja</span>
+  <span>7 poems · more will find their way in</span>
+</footer>
+
+</div>
+</body>
+</html>

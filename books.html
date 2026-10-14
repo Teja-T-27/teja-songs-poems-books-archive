@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Books — Teja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F1E9DA;
+    --paper: #F6F0E3;
+    --ink: #221812;
+    --dim: #7A6A5A;
+    --rule: #D9CBB2;
+    --accent: #A0492E;
+    --card: #EDE3D0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-weight: 300;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    padding: 0 24px;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 80px 0 128px; }
+
+  header.mast {
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 40px;
+  }
+  .eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    letter-spacing: 0.01em;
+  }
+  h1.title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(56px, 11vw, 108px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 144;
+    margin-bottom: 20px;
+  }
+  .lede {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 18px;
+    color: var(--dim);
+    font-variation-settings: "opsz" 20;
+    max-width: 560px;
+  }
+
+  /* Controls */
+  .controls {
+    margin-bottom: 56px;
+  }
+  input.search {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 20px;
+    padding: 10px 0;
+    outline: none;
+    transition: border-color 0.2s;
+    font-variation-settings: "opsz" 20;
+    margin-bottom: 24px;
+  }
+  input.search::placeholder {
+    color: var(--dim);
+    font-style: italic;
+  }
+  input.search:focus { border-bottom-color: var(--accent); }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .chip {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--dim);
+    background: transparent;
+    border: 1px solid var(--rule);
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    text-transform: lowercase;
+    transition: all 0.15s ease;
+  }
+  .chip:hover { color: var(--ink); border-color: var(--dim); }
+  .chip.on {
+    color: var(--paper);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* Books */
+  .entries { display: flex; flex-direction: column; }
+  .entry {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 32px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .entry:last-child { border-bottom: none; }
+
+  .cover-wrap {
+    width: 100px;
+    aspect-ratio: 2 / 3;
+    background: var(--card);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 2px 3px 0 rgba(34, 24, 18, 0.08);
+  }
+  .cover-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .cover-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 12;
+    color: var(--accent);
+    background: var(--card);
+  }
+  .cover-fallback .fb-title {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .cover-fallback .fb-author {
+    font-size: 9px;
+    font-style: italic;
+    color: var(--dim);
+    line-height: 1.2;
+  }
+
+  .quote-block { padding-top: 4px; }
+  .quote {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(18px, 2.4vw, 22px);
+    line-height: 1.45;
+    color: var(--ink);
+    font-variation-settings: "opsz" 24;
+    margin-bottom: 16px;
+    letter-spacing: -0.005em;
+  }
+  .quote::before {
+    content: '“';
+    font-family: 'Fraunces', serif;
+    font-style: normal;
+    color: var(--accent);
+    font-size: 1.4em;
+    line-height: 0;
+    vertical-align: -0.15em;
+    margin-right: 4px;
+    font-variation-settings: "opsz" 144;
+  }
+  .quote::after {
+    content: '”';
+    font-family: 'Fraunces', serif;
+    font-style: normal;
+    color: var(--accent);
+    font-size: 1.2em;
+    line-height: 0;
+    vertical-align: -0.2em;
+    margin-left: 2px;
+    font-variation-settings: "opsz" 144;
+  }
+  .attrib {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--ink);
+    font-variation-settings: "opsz" 14;
+    margin-bottom: 4px;
+  }
+  .attrib .author {
+    color: var(--dim);
+    font-style: italic;
+    font-weight: 300;
+  }
+  .cat-tag {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: lowercase;
+    margin-top: 6px;
+  }
+
+  .empty {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--dim);
+    text-align: center;
+    padding: 80px 0;
+  }
+
+  footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--dim);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 0 20px; }
+    .wrap { padding: 48px 0 80px; }
+    .entry { grid-template-columns: 80px 1fr; gap: 20px; padding: 32px 0; }
+    .cover-wrap { width: 80px; }
+    .quote { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">books read · lines that stayed with me</div>
+  <h1 class="title">Books.</h1>
+  <p class="lede">Not a review shelf. Just the sentences that outlasted the plots.</p>
+</header>
+
+<div class="controls">
+  <input type="text" class="search" id="search" placeholder="search a title, author, or a word from the quote…" autocomplete="off">
+  <div class="chips" id="chips"></div>
+</div>
+
+<div class="entries" id="entries"></div>
+
+<footer>
+  <span>a small archive · Teja</span>
+  <span><span id="count">0</span> entries</span>
+</footer>
+
+</div>
+
+<script>
+const BOOKS = [
+  // Fiction
+  {c: "Fiction", t: "The Alchemist", a: "Paulo Coelho", q: "When you want something, all the universe conspires in helping you to achieve it."},
+  {c: "Fiction", t: "The Monk Who Sold His Ferrari", a: "Robin Sharma", q: "Your 'I CAN' is more important than your IQ."},
+  {c: "Fiction", t: "The Da Vinci Code", a: "Dan Brown", q: "Sometimes a legend that endures for centuries...endures for a reason."},
+  {c: "Fiction", t: "Call After Midnight", a: "Tess Gerritsen", q: "Fear feeds on the unknown, and the more you uncover, the less you will be afraid."},
+  {c: "Fiction", t: "Angels & Demons", a: "Dan Brown", q: "Science and religion are not at odds. Science is simply too young to understand."},
+  {c: "Fiction", t: "Scion of Ikshvaku", a: "Amish Tripathi", q: "You don't become great because you think you are. You become great because of the actions you take."},
+  {c: "Fiction", t: "Love Story", a: "Erich Segal", q: "Love means never having to say you're sorry."},
+  {c: "Fiction", t: "Are You Afraid of the Dark?", a: "Sidney Sheldon", q: "Nothing lasts forever, not even the best machines. And what are we but machines?"},
+  {c: "Fiction", t: "Q & A", a: "Vikas Swarup", q: "The streets taught me all I needed to know."},
+  {c: "Fiction", t: "Looking for Alaska", a: "John Green", q: "The only way out of the labyrinth of suffering is to forgive."},
+  {c: "Fiction", t: "Origin", a: "Dan Brown", q: "Nothing is invented, for it's written in nature first."},
+  {c: "Fiction", t: "The Little Prince", a: "Antoine de Saint-Exupéry", q: "It is only with the heart that one can see rightly; what is essential is invisible to the eye."},
+  {c: "Fiction", t: "The Notebook", a: "Nicholas Sparks", q: "The best love is the kind that awakens the soul and makes us reach for more."},
+  {c: "Fiction", t: "The Immortals of Meluha", a: "Amish Tripathi", q: "Good and evil are two sides of the same coin."},
+  {c: "Fiction", t: "The Secret of the Nagas", a: "Amish Tripathi", q: "The truth may hurt for a little while, but a lie hurts forever."},
+  {c: "Fiction", t: "Maybe Someday", a: "Colleen Hoover", q: "There are moments in life when words are not enough."},
+  {c: "Fiction", t: "Gone Girl", a: "Gillian Flynn", q: "Love makes you want to be a better man. But maybe love, real love, also gives you permission to just be the man you are."},
+  {c: "Fiction", t: "To Kill a Mockingbird", a: "Harper Lee", q: "You never really understand a person until you consider things from his point of view."},
+  {c: "Fiction", t: "The Girl in Room 105", a: "Chetan Bhagat", q: "Sometimes, the biggest secrets you can only tell a stranger."},
+  {c: "Fiction", t: "The Hunger Games", a: "Suzanne Collins", q: "May the odds be ever in your favor."},
+  {c: "Fiction", t: "Catching Fire", a: "Suzanne Collins", q: "I am not pretty. I am not beautiful. I am as radiant as the sun."},
+  {c: "Fiction", t: "Mockingjay", a: "Suzanne Collins", q: "It takes ten times as long to put yourself back together as it does to fall apart."},
+  {c: "Fiction", t: "Twilight", a: "Stephenie Meyer", q: "And so the lion fell in love with the lamb."},
+  {c: "Fiction", t: "The Fault in Our Stars", a: "John Green", q: "Some infinities are bigger than other infinities."},
+  {c: "Fiction", t: "Half Girlfriend", a: "Chetan Bhagat", q: "There is a difference between desire and desperation."},
+  {c: "Fiction", t: "The 3 Mistakes of My Life", a: "Chetan Bhagat", q: "Life is all about taking chances and doing what you love."},
+  {c: "Fiction", t: "You are the Best Wife", a: "Ajay K. Pandey", q: "Love is not about how many days, months, or years you have been together. Love is about how much you love each other every day."},
+  {c: "Fiction", t: "Harry Potter and the Philosopher's Stone", a: "J.K. Rowling", q: "It does not do to dwell on dreams and forget to live."},
+  {c: "Fiction", t: "Harry Potter and the Chamber of Secrets", a: "J.K. Rowling", q: "It is our choices, Harry, that show what we truly are, far more than our abilities."},
+  {c: "Fiction", t: "Harry Potter and the Prisoner of Azkaban", a: "J.K. Rowling", q: "Happiness can be found, even in the darkest of times, if one only remembers to turn on the light."},
+  {c: "Fiction", t: "The Great Gatsby", a: "F. Scott Fitzgerald", q: "So we beat on, boats against the current, borne back ceaselessly into the past."},
+  {c: "Fiction", t: "The Valley of Fear", a: "Arthur Conan Doyle", q: "Mediocrity knows nothing higher than itself; but talent instantly recognizes genius."},
+  {c: "Fiction", t: "The Merchant of Venice", a: "William Shakespeare", q: "The quality of mercy is not strain'd, it droppeth as the gentle rain from heaven."},
+  {c: "Fiction", t: "The Love Hypothesis", a: "Ali Hazelwood", q: "It's okay to not have it all figured out. Sometimes, the most unexpected things turn out to be the best."},
+  {c: "Fiction", t: "The Silent Patient", a: "Alex Michaelides", q: "Unexpressed emotions will never die. They are buried alive and will come forth later in uglier ways."},
+  {c: "Fiction", t: "Thirteen Reasons Why", a: "Jay Asher", q: "You can't stop the future. You can't rewind the past. The only way to learn the secret...is to press play."},
+  {c: "Fiction", t: "Eleven Minutes", a: "Paulo Coelho", q: "When I had nothing to lose, I had everything. When I stopped being who I am, I found myself."},
+  {c: "Fiction", t: "1984", a: "George Orwell", q: "Big Brother is Watching You."},
+  {c: "Fiction", t: "Pride and Prejudice", a: "Jane Austen", q: "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife."},
+  {c: "Fiction", t: "The Book Thief", a: "Markus Zusak", q: "I have hated words and I have loved them, and I hope I have made them right."},
+  {c: "Fiction", t: "Alice's Adventures in Wonderland", a: "Lewis Carroll", q: "It's no use going back to yesterday, because I was a different person then."},
+  {c: "Fiction", t: "War and Peace", a: "Leo Tolstoy", q: "We can know only that we know nothing. And that is the highest degree of human wisdom."},
+
+  // Non-Fiction
+  {c: "Non-Fiction", t: "Ikigai", a: "Hector Garcia and Francesc Miralles", q: "The happiest people are not the ones who achieve the most. They are the ones who spend more time than others in a state of flow."},
+  {c: "Non-Fiction", t: "Rich Dad Poor Dad", a: "Robert T. Kiyosaki", q: "The love of money is not the root of all evil. The lack of money is the root of all evil."},
+  {c: "Non-Fiction", t: "Speed Reading", a: "Justin Hammond", q: "The more you read, the more things you will know. The more you learn, the more places you'll go."},
+  {c: "Non-Fiction", t: "Unlimited Memory", a: "Kevin Horsley", q: "Memory is not about the past, it's about the future."},
+  {c: "Non-Fiction", t: "Mind is Your Business", a: "Sadhguru", q: "Your mind, if you do not manage it, will become your greatest enemy."},
+  {c: "Non-Fiction", t: "The 5 AM Revolution", a: "Dan Luca", q: "Your morning sets the tone for the rest of the day."},
+  {c: "Non-Fiction", t: "Do It Today", a: "Darius Foroux", q: "Productivity is not about doing more. It's about creating more impact with less work."},
+  {c: "Non-Fiction", t: "The To-Do List Formula", a: "Damon Zahariades", q: "A to-do list is not just a list of tasks. It's a plan of action."},
+  {c: "Non-Fiction", t: "The Power of Your Subconscious Mind", a: "Joseph Murphy", q: "Change your thoughts, and you change your destiny."},
+  {c: "Non-Fiction", t: "Think and Grow Rich", a: "Napoleon Hill", q: "Whatever the mind can conceive and believe, it can achieve."},
+  {c: "Non-Fiction", t: "The Art of Saying No", a: "Damon Zahariades", q: "Saying no to the things that don't matter allows you to say yes to the things that do."},
+  {c: "Non-Fiction", t: "Atomic Habits", a: "James Clear", q: "You do not rise to the level of your goals. You fall to the level of your systems."},
+  {c: "Non-Fiction", t: "Think Straight", a: "Darius Foroux", q: "Clear thinking leads to clear outcomes."},
+  {c: "Non-Fiction", t: "How to Become a People Magnet", a: "Leil Lowndes", q: "True communication is when people can relate to each other."},
+  {c: "Non-Fiction", t: "25 Small Habits", a: "S.J. Scott", q: "Small habits build the foundation for great achievements."},
+  {c: "Non-Fiction", t: "How to Stop Worrying and Start Living", a: "Dale Carnegie", q: "Our fatigue is often caused not by work, but by worry, frustration, and resentment."},
+
+  // Biographies & Memoirs
+  {c: "Biographies", t: "Becoming", a: "Michelle Obama", q: "Your story is what you have, what you will always have. It is something to own."},
+  {c: "Biographies", t: "Hitler: A Biography", a: "Ian Kershaw", q: "The road to Auschwitz was built by hate, but paved with indifference."},
+  {c: "Biographies", t: "The Diary of a Young Girl", a: "Anne Frank", q: "In spite of everything, I still believe that people are really good at heart."},
+  {c: "Biographies", t: "Jack Ma: The Art of Dreaming and Succeeding Extraordinarily", a: "R. S. Shivaji Rao", q: "Never give up. Today is hard, tomorrow will be worse, but the day after tomorrow will be sunshine."},
+
+  // Science & Tech
+  {c: "Science", t: "A Brief History of Time", a: "Stephen Hawking", q: "The greatest enemy of knowledge is not ignorance, it is the illusion of knowledge."},
+  {c: "Science", t: "Brief Answers to the Big Questions", a: "Stephen Hawking", q: "However difficult life may seem, there is always something you can do and succeed at."},
+  {c: "Science", t: "Bad Blood: Secrets and Lies in a Silicon Valley Startup", a: "John Carreyrou", q: "It's not about making money. It's about changing the world."},
+
+  // Travel
+  {c: "Travel", t: "Cockpit Confidential", a: "Patrick Smith", q: "Flying is the second greatest thrill known to man. Landing is the first."},
+
+  // Philosophy
+  {c: "Philosophy", t: "The Prophet", a: "Kahlil Gibran", q: "You give but little when you give of your possessions. It is when you give of yourself that you truly give."},
+  {c: "Philosophy", t: "The Art of War", a: "Sun Tzu", q: "The supreme art of war is to subdue the enemy without fighting."},
+
+  // Prose Chapters
+  {c: "Prose", t: "India's Heroes", a: "Unknown", q: "Heroes are made by the paths they choose, not the powers they are graced with."},
+  {c: "Prose", t: "Journey by Night", a: "Norah Burke", q: "Bravery is not the absence of fear, but the triumph over it."},
+  {c: "Prose", t: "Hunger", a: "Nasira Sharma", q: "Hunger knows no friend but its feeder."},
+  {c: "Prose", t: "My Lost Dollar", a: "Stephen Leacock", q: "Small debts are like small gunshot wounds; the annoyance is in the sting."},
+  {c: "Prose", t: "God Lives in the Panch", a: "Munshi Premchand", q: "Justice should be tempered with mercy."},
+  {c: "Prose", t: "The Last Leaf", a: "O. Henry", q: "The art of living is more like wrestling than dancing."},
+  {c: "Prose", t: "The Kabuliwala", a: "Rabindranath Tagore", q: "Memories are like a tree that shelters the past."},
+  {c: "Prose", t: "The Bet", a: "Anton Chekhov", q: "It's better to live a short life full of meaning than a long life without it."},
+  {c: "Prose", t: "The Tiger in the Tunnel", a: "Ruskin Bond", q: "Courage is not the absence of fear, but the determination to do what is right in spite of it."},
+  {c: "Prose", t: "Princess September", a: "William Somerset Maugham", q: "Freedom is the essence of life."},
+
+  // Telugu
+  {c: "Telugu", t: "సత్య శోధన లేక ఆత్మకథ", a: "Mahatma Gandhi", q: "My life is my message."},
+  {c: "Telugu", t: "Gadya Kusumavali", a: "prose anthology", q: "Wisdom is not a product of schooling but of the lifelong attempt to acquire it."},
+  {c: "Telugu", t: "Padya Kusumavali", a: "poetry anthology", q: "Poetry is when an emotion has found its thought and the thought has found words."},
+];
+
+const CATS = ["All", "Fiction", "Non-Fiction", "Biographies", "Science", "Travel", "Philosophy", "Prose", "Telugu"];
+
+const chipsEl = document.getElementById('chips');
+const entriesEl = document.getElementById('entries');
+const searchEl = document.getElementById('search');
+const countEl = document.getElementById('count');
+
+let activeCat = "All";
+let query = "";
+
+// build chips
+CATS.forEach(c => {
+  const b = document.createElement('button');
+  b.className = 'chip' + (c === 'All' ? ' on' : '');
+  b.textContent = c.toLowerCase();
+  b.dataset.cat = c;
+  b.onclick = () => {
+    activeCat = c;
+    document.querySelectorAll('.chip').forEach(x => x.classList.toggle('on', x.dataset.cat === c));
+    render();
+  };
+  chipsEl.appendChild(b);
+});
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function render() {
+  const list = BOOKS.filter(b => {
+    if (activeCat !== "All" && b.c !== activeCat) return false;
+    if (query) {
+      const hay = (b.t + ' ' + b.a + ' ' + b.q).toLowerCase();
+      if (!hay.includes(query)) return false;
+    }
+    return true;
+  });
+  countEl.textContent = list.length;
+  if (list.length === 0) {
+    entriesEl.innerHTML = '<div class="empty">nothing here — try a different word</div>';
+    return;
+  }
+  entriesEl.innerHTML = list.map((b, i) => `
+    <div class="entry">
+      <div class="cover-wrap" data-title="${escapeHtml(b.t)}" data-author="${escapeHtml(b.a)}">
+        <div class="cover-fallback">
+          <div class="fb-title">${escapeHtml(b.t)}</div>
+          <div class="fb-author">${escapeHtml(b.a)}</div>
+        </div>
+      </div>
+      <div class="quote-block">
+        <div class="quote">${escapeHtml(b.q)}</div>
+        <div class="attrib">${escapeHtml(b.t)} <span class="author">— ${escapeHtml(b.a)}</span></div>
+        <div class="cat-tag">${escapeHtml(b.c)}</div>
+      </div>
+    </div>
+  `).join('');
+  loadCovers();
+}
+
+// Cover loading via Open Library, cached in localStorage
+const CACHE_KEY = 'book_covers_v1';
+let coverCache = {};
+try { coverCache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}'); } catch(e) {}
+
+async function loadCovers() {
+  const wraps = document.querySelectorAll('.cover-wrap:not([data-loaded])');
+  for (const w of wraps) {
+    const title = w.dataset.title;
+    const author = w.dataset.author;
+    const key = title + '|' + author;
+    w.dataset.loaded = '1';
+    if (coverCache[key] === 'none') continue;
+    if (coverCache[key]) {
+      applyCover(w, coverCache[key]);
+      continue;
+    }
+    // fetch
+    try {
+      const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&limit=1`;
+      const r = await fetch(url);
+      const d = await r.json();
+      const doc = d.docs && d.docs[0];
+      if (doc && doc.cover_i) {
+        const coverUrl = `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg`;
+        coverCache[key] = coverUrl;
+        applyCover(w, coverUrl);
+      } else {
+        coverCache[key] = 'none';
+      }
+      try { localStorage.setItem(CACHE_KEY, JSON.stringify(coverCache)); } catch(e) {}
+    } catch(e) { /* silent */ }
+  }
+}
+
+function applyCover(wrap, url) {
+  const img = document.createElement('img');
+  img.src = url;
+  img.alt = '';
+  img.loading = 'lazy';
+  img.onload = () => {
+    const fb = wrap.querySelector('.cover-fallback');
+    if (fb) fb.style.display = 'none';
+  };
+  img.onerror = () => {};
+  wrap.appendChild(img);
+}
+
+searchEl.addEventListener('input', e => {
+  query = e.target.value.trim().toLowerCase();
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
