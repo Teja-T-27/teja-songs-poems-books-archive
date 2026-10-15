@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iconic Dialogues</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf7;
+    --surface: #ffffff;
+    --surface-2: #f4f2ec;
+    --border: #e5e2d8;
+    --text: #1a1a1a;
+    --text-muted: #6b6b6b;
+    --accent: #b8410e;
+    --accent-soft: #fde8dc;
+    --high: #2a7a3f;
+    --high-bg: #e4f3e8;
+    --med: #a06a00;
+    --med-bg: #faf0d8;
+    --low: #999;
+    --low-bg: #eee;
+    --script-bg: #fbf7ee;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 32px 16px 80px; }
+  header { margin-bottom: 24px; }
+  h1 { font-size: 28px; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.02em; }
+  .sub { color: var(--text-muted); font-size: 14px; margin: 0; }
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 16px;
+    position: sticky; top: 0; background: var(--bg); padding: 12px 0; z-index: 10;
+    border-bottom: 1px solid var(--border);
+  }
+  .tabs { display: flex; gap: 4px; }
+  .tab {
+    padding: 8px 14px; border: 1px solid var(--border); background: var(--surface);
+    color: var(--text); border-radius: 6px; cursor: pointer; font-size: 14px;
+    font-family: inherit; font-weight: 500;
+  }
+  .tab.active { background: var(--accent); color: white; border-color: var(--accent); }
+  .search {
+    flex: 1; min-width: 180px; padding: 8px 12px; border: 1px solid var(--border);
+    border-radius: 6px; background: var(--surface); color: var(--text); font-size: 14px;
+    font-family: inherit;
+  }
+  .search:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  select {
+    padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px;
+    background: var(--surface); color: var(--text); font-size: 14px; font-family: inherit;
+  }
+  .count { font-size: 13px; color: var(--text-muted); margin: 4px 0 12px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 18px; margin-bottom: 10px; box-shadow: var(--shadow);
+  }
+  .card-head {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+    margin-bottom: 8px; flex-wrap: wrap;
+  }
+  .movie { font-weight: 600; font-size: 15px; }
+  .year { color: var(--text-muted); font-weight: 400; }
+  .badge {
+    font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.03em;
+  }
+  .badge.high { background: var(--high-bg); color: var(--high); }
+  .badge.medium { background: var(--med-bg); color: var(--med); }
+  .badge.low { background: var(--low-bg); color: var(--low); }
+  .script {
+    background: var(--script-bg); padding: 10px 12px; border-radius: 6px;
+    margin: 8px 0; font-size: 18px; line-height: 1.6;
+  }
+  .script.te { font-family: 'Noto Sans Telugu', sans-serif; }
+  .script.hi { font-family: 'Noto Sans Devanagari', sans-serif; }
+  .roman { color: var(--text-muted); font-style: italic; font-size: 14px; margin: 4px 0; }
+  .translation { font-size: 15px; margin: 8px 0 6px; }
+  .meta { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+  .meta strong { color: var(--text); font-weight: 500; }
+  .context { font-size: 13px; color: var(--text-muted); margin-top: 4px; font-style: italic; }
+  .empty { text-align: center; color: var(--text-muted); padding: 40px; }
+  details.era { margin-bottom: 16px; }
+  details.era > summary {
+    cursor: pointer; font-weight: 600; font-size: 14px; padding: 6px 0;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em;
+    list-style: none;
+  }
+  details.era > summary::-webkit-details-marker { display: none; }
+  details.era > summary::before { content: "▸ "; display: inline-block; transition: transform 0.15s; }
+  details.era[open] > summary::before { content: "▾ "; }
+  @media (max-width: 600px) {
+    h1 { font-size: 22px; }
+    .wrap { padding: 20px 12px 60px; }
+    .script { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Iconic Dialogues</h1>
+  <p class="sub">Curated collection · Telugu &amp; Hindi cinema · verified with confidence tags</p>
+</header>
+
+<div class="controls">
+  <div class="tabs">
+    <button class="tab active" data-lang="te">Telugu</button>
+    <button class="tab" data-lang="hi">Hindi</button>
+  </div>
+  <input type="search" class="search" id="search" placeholder="Search movie, character, word…">
+  <select id="era">
+    <option value="">All eras</option>
+    <option value="pre1980">Pre-1980</option>
+    <option value="1980s">1980s</option>
+    <option value="1990s">1990s</option>
+    <option value="2000s">2000s</option>
+    <option value="2010s">2010s</option>
+    <option value="2020s">2020s</option>
+  </select>
+</div>
+<div class="count" id="count"></div>
+<div id="list"></div>
+</div>
+
+<script>
+const D = [
+  // ===== TELUGU =====
+  {l:"te",m:"Mayabazar",y:1957,c:"Ghatotkacha (S.V. Ranga Rao)",s:"ఎవరూ పుట్టించకుండా మాటలెలా పుడతాయి?",r:"Evaru puttinchakunda matalela pudathayi?",t:"How are words born without anyone creating them?",x:"Ghatotkacha comically questions the logical origin of language and rumors.",cf:"high"},
+  {l:"te",m:"Missamma",y:1955,c:"M.T. Rao (N.T. Rama Rao)",s:"తమరు మామూలుగా మాట్లాడితేనే వినపడుతుంది.",r:"Thamaru maamuluga matladithene vinapaduthundi.",t:"I can hear you just fine even if you speak normally.",x:"A witty retort to a loud and boastful employer during an argument.",cf:"high"},
+  {l:"te",m:"Gundamma Katha",y:1962,c:"Anji (N.T. Rama Rao)",s:"ఆకలైన వాడికి అన్నం పెట్టాలి, అహంకారంతో ఉన్నవాడికి బుద్ధి చెప్పాలి.",r:"Aakalaina vaadiki annam pettali, ahankaramtho unnavaadiki buddhi cheppali.",t:"One must feed the hungry, and teach a lesson to the arrogant.",x:"Anji explains his philosophy while dealing with his haughty mother-in-law.",cf:"medium"},
+  {l:"te",m:"Nartanasala",y:1963,c:"Keechaka (S.V. Ranga Rao)",s:"ఎవడనుకున్నావు రా కీచకుడు అంటే!",r:"Evadanukunnavu ra Keechakudu ante!",t:"Who did you think Keechaka is!",x:"Keechaka arrogantly asserts his immense strength and authority.",cf:"high"},
+  {l:"te",m:"Alluri Seetarama Raju",y:1974,c:"Alluri Sitarama Raju (Krishna)",s:"నా మాతృభూమి నుంచి వెళ్లిపోండి!",r:"Naa matrubhumi nunchi vellipondi!",t:"Leave my motherland!",x:"The legendary freedom fighter demands the British leave India.",cf:"high"},
+  {l:"te",m:"Mutyala Muggu",y:1975,c:"Contractor (Rao Gopal Rao)",s:"చరిత్ర చింపేస్తే చిరిగిపోదు, చెరిపేస్తే చెరిగిపోదు.",r:"Charitra chimpeste chirigipodu, cheripeste cherigipodu.",t:"History won't tear if you try to tear it, it won't erase if you try to erase it.",x:"A cynical villain remarks on the permanence of fate and facts.",cf:"high"},
+  {l:"te",m:"Daana Veera Soora Karna",y:1977,c:"Duryodhana (N.T. Rama Rao)",s:"ఆచార్య దేవా, ఏమంటివి ఏమంటివి?",r:"Aacharya devaa, emantivi emantivi?",t:"Respected teacher, what did you say, what did you say?",x:"Duryodhana angrily objects when Dronacharya insults Karna's lineage.",cf:"high"},
+  {l:"te",m:"Sankarabharanam",y:1980,c:"Sankara Sastry (J.V. Somayajulu)",s:"సంగీతానికి కులం లేదు, మతం లేదు.",r:"Sangeethaniki kulam ledu, matham ledu.",t:"Music has no caste, no religion.",x:"The maestro defends teaching a dedicated student from a marginalized background.",cf:"high"},
+  {l:"te",m:"Bobbili Puli",y:1982,c:"Major Chakradhar (N.T. Rama Rao)",s:"ఇదే నా ఆఖరి తీర్పు!",r:"Ide naa aakhari theerpu!",t:"This is my final judgment!",x:"The protagonist delivers a roaring verdict against a corrupt system.",cf:"high"},
+  {l:"te",m:"Khaidi",y:1983,c:"Suryam (Chiranjeevi)",s:"ఈ సమాజం నాకు రక్తం రుచి మరిగించింది!",r:"Ee samajam naaku raktham ruchi mariginchindi!",t:"This society has made me addicted to the taste of blood!",x:"A wrongly convicted man explains how oppression forced him to become violent.",cf:"high"},
+  {l:"te",m:"Sagara Sangamam",y:1983,c:"Balakrishna (Kamal Haasan)",s:"కళకి ప్రాణం భావం, ఆ భావానికి రూపమే ఈ నాట్యం.",r:"Kalaki pranam bhavam, aa bhavaniki rupame ee natyam.",t:"Emotion is the life of art, and this dance is the physical form of that emotion.",x:"A passionate dancer explains the depth and spiritual nature of classical dance.",cf:"medium"},
+  {l:"te",m:"Rakshasudu",y:1986,c:"Purusha (Chiranjeevi)",s:"నేను మనిషిని కాదు, రాక్షసుడ్ని.",r:"Nenu manishini kaadu, rakshasudni.",t:"I am not a human, I am a demon.",x:"A hardened man embraces his dark persona when pushed to the limit.",cf:"high"},
+  {l:"te",m:"Swathi Muthyam",y:1986,c:"Sivayya (Kamal Haasan)",s:"ఏమండీ... మీ పేరు ఏమిటి?",r:"Emandi... mee peru emiti?",t:"Excuse me... what is your name?",x:"An innocent, autistic man asks naive questions, oblivious to social norms.",cf:"medium"},
+  {l:"te",m:"Aha Naa Pellanta",y:1987,c:"Lakshmipathy (Kota Srinivasa Rao)",s:"నాకు తెలిసిపోతుంది లక్ష్మీపతీ... నాకు తెలిసిపోతుంది.",r:"Naaku thelisipothundi Lakshmipathy... naaku thelisipothundi.",t:"I will find out, Lakshmipathy... I will find out.",x:"The miserly man talks to himself, paranoid someone is stealing his wealth.",cf:"high"},
+  {l:"te",m:"Shiva",y:1989,c:"Shiva (Nagarjuna)",s:"భవాని... నేను చచ్చిపోతానేమో అని భయంగా ఉందా?",r:"Bhavani... nenu chachipothanemo ani bhayanga undaa?",t:"Bhavani... are you scared that I might die?",x:"A fearless student mocks the dreaded gangster trying to intimidate him.",cf:"high"},
+  {l:"te",m:"Geethanjali",y:1989,c:"Prakash (Nagarjuna)",s:"నేను చనిపోతాను... కానీ నాకు బ్రతకాలని ఉంది!",r:"Nenu chanipothanu... kaani naaku brathakalani undi!",t:"I am going to die... but I want to live!",x:"A terminally ill youth admits his desperation for life after finding love.",cf:"high"},
+  {l:"te",m:"Bobbili Raja",y:1990,c:"Raja (Venkatesh)",s:"అయ్యో పాపం... అబ్బా కష్టం.",r:"Ayyo paapam... abba kashtam.",t:"Oh, what a sin... oh, what a hardship.",x:"The hero sarcastically mocks the villains after easily beating them up.",cf:"high"},
+  {l:"te",m:"Kshana Kshanam",y:1991,c:"Chandu (Venkatesh)",s:"నేను చాలా డేంజరస్ కాండిడేట్ ని.",r:"Nenu chaala dangerous candidate ni.",t:"I am a very dangerous candidate.",x:"A small-time thief comically trying to act like a hardened criminal.",cf:"high"},
+  {l:"te",m:"Aditya 369",y:1991,c:"Krishna Kumar (Balakrishna)",s:"గతం గతః... జరిగిన దానిని ఎవరూ మార్చలేరు.",r:"Gatham gathaha... jarigina danini evaru marchaleru.",t:"The past is the past... no one can change what has happened.",x:"The protagonist acknowledges the immutability of time after time-traveling.",cf:"high"},
+  {l:"te",m:"Gharana Mogudu",y:1992,c:"Raju (Chiranjeevi)",s:"ఫేస్ టర్నింగ్ ఇచ్చుకో!",r:"Face turning icchuko!",t:"Turn your face away!",x:"A rugged factory worker dismissively tells an arrogant female boss to back off.",cf:"high"},
+  {l:"te",m:"Mutamestri",y:1993,c:"Bose (Chiranjeevi)",s:"ఈ మేస్త్రీ మాట తప్పడు.",r:"Ee mestri maata thappadu.",t:"This Mestri never goes back on his word.",x:"The honorable local leader reassures his people his promises are stone.",cf:"high"},
+  {l:"te",m:"Hello Brother",y:1994,c:"Deva (Nagarjuna)",s:"మామూలుగానే మతి లేదు, ఇక తాగానంటే మైండ్ బ్లాంక్.",r:"Maamulugaane mathi ledu, ika thaaganante mind blank.",t:"Usually I don't have sense, if I drink my mind goes blank.",x:"A chaotic street thug humorously excuses his own unpredictable behavior.",cf:"high"},
+  {l:"te",m:"Baasha",y:1995,c:"Manikyabasha (Rajinikanth)",s:"నేను ఒక్కసారి చెబితే వంద సార్లు చెప్పినట్టు.",r:"Nenu okkasari chebithe vanda sarlu cheppinattu.",t:"If I say it once, it is equivalent to saying it a hundred times.",x:"The don sets an absolute boundary, warning an adversary never to cross him.",cf:"high"},
+  {l:"te",m:"Peddarayudu",y:1995,c:"Peddarayudu (Mohan Babu)",s:"తీర్పు చెప్పే హక్కు ఆ దేవుడికి, లేదా ఈ పెదరాయుడికి మాత్రమే ఉంది.",r:"Theerpu cheppe hakku aa devudiki, leda ee Peddarayudiki matrame undi.",t:"The right to pass judgment belongs only to God, or to this Peddarayudu.",x:"The respected headman asserts his absolute authority and unyielding justice.",cf:"high"},
+  {l:"te",m:"Ninne Pelladatha",y:1996,c:"Mahalaxmi (Tabu)",s:"నాకు నిన్నే పెళ్లాడాలని ఉంది.",r:"Naaku ninne pelladalani undi.",t:"I want to marry only you.",x:"The heroine directly expresses her singular, unwavering marital intention.",cf:"high"},
+  {l:"te",m:"Osey Ramulamma",y:1997,c:"Ramulamma (Vijayashanti)",s:"దొరలు కాదురో... వాళ్లు దొంగ కొడుకులు!",r:"Doralu kaduro... vaallu donga kodukulu!",t:"They aren't lords... they are sons of thieves!",x:"A fiery rebellion leader rallies villagers against corrupt feudal landlords.",cf:"high"},
+  {l:"te",m:"Tholi Prema",y:1998,c:"Balu (Pawan Kalyan)",s:"ఈ ప్రపంచంలో ప్రతి అబ్బాయి ప్రేమించే తొలి అమ్మాయి వాళ్ళ అమ్మే.",r:"Ee prapanchamlo prathi abbayi preminche tholi ammayi vaalla amme.",t:"The first girl every boy loves in this world is his mother.",x:"A rare moment of emotional maturity from the carefree protagonist.",cf:"high"},
+  {l:"te",m:"Tholi Prema",y:1998,c:"Balu (Pawan Kalyan)",s:"ప్రేమ అంటే మనం వాళ్ళకి ఇచ్చేది, వాళ్ళ దగ్గర నుంచి తీసుకునేది కాదు.",r:"Prema ante manam vaallaki icchedi, vaalla daggara nunchi theesukunedi kaadu.",t:"Love is what we give them, not what we take from them.",x:"A deeply emotional realization of selfless, sacrificial love.",cf:"high"},
+  {l:"te",m:"Ganesh",y:1998,c:"Ganesh (Venkatesh)",s:"ఎనీ సెంటర్, సింగిల్ హ్యాండ్, గణేష్!",r:"Any center, single hand, Ganesh!",t:"Any location, single-handed, Ganesh!",x:"A journalist declares he will fight corruption anywhere, on his own.",cf:"high"},
+  {l:"te",m:"Ganesh",y:1998,c:"Ganesh (Venkatesh)",s:"లక్ష కోట్లు ఉన్నవాడైనా సరే... తినేది అన్నమే, బంగారం కాదు!",r:"Laksha kotlu unnavaadaina sare... thinedi anname, bangaram kaadu!",t:"Even one with a hundred billion... eats rice, not gold!",x:"A journalist condemns the greedy accumulation of black money.",cf:"high"},
+  {l:"te",m:"Suswagatham",y:1998,c:"Ganesh (Pawan Kalyan)",s:"ప్రేమించడం అంటే జీవితం లో ఒక భాగం మాత్రమే... కానీ స్నేహం అనేది జీవితమే!",r:"Preminchadam ante jeevitham lo oka bhagam matrame... kaani sneham anedi jeevithame!",t:"Loving is just a part of life... but friendship is life itself!",x:"A heartbroken youth realizes the eternal value of his friends.",cf:"medium"},
+  {l:"te",m:"Anthapuram",y:1998,c:"Narasimha (Prakash Raj)",s:"ఇక్కడ ప్రాణాలు తీయడాలు లేవు... కేవలం ప్రాణాలు ఇవ్వడాలే!",r:"Ikkada praanalu theeyadalu levu... kevalam praanalu ivvadale!",t:"There is no taking of lives here... only giving lives!",x:"A ruthless faction leader ironically describes his village justice system.",cf:"high"},
+  {l:"te",m:"Thammudu",y:1999,c:"Subrahmanyam (Pawan Kalyan)",s:"నన్ను చూసి ఎవడైనా నవ్వితే... వాడి పళ్ళు రాలతాయి.",r:"Nannu chusi evadaina navvithe... vaadi pallu raalathayi.",t:"If anyone looks at me and laughs... their teeth will fall out.",x:"A wayward brother asserts his fierce self-respect to bullies.",cf:"high"},
+  {l:"te",m:"Samarasimha Reddy",y:1999,c:"Samarasimha Reddy (Balakrishna)",s:"తొడగొడితే రికార్డులు బద్దలు కొట్టాలి!",r:"Thodagodithe recordlu baddalu kottali!",t:"If I slap my thigh, records should be shattered!",x:"The invincible hero asserts his unmatched legacy and power.",cf:"high"},
+  {l:"te",m:"Oke Okkadu",y:1999,c:"Shivaji (Arjun)",s:"ఒక్కొక్క రూపాయి కూడబెడితేనే లక్షలు అవుతాయి.",r:"Okkokka rupayi koodabedithene lakshalu avuthayi.",t:"Only if you save single rupees one by one, do they become lakhs.",x:"The one-day CM defends the common man's struggle against corruption.",cf:"medium"},
+  {l:"te",m:"Nuvve Kavali",y:2000,c:"Tarun (Tarun)",s:"నువ్వు నా బెస్ట్ ఫ్రెండ్ వి... నీ కోసం ప్రాణాలు ఇస్తాను.",r:"Nuvvu naa best friend vi... nee kosam pranaalu isthanu.",t:"You are my best friend... I would give my life for you.",x:"A heartbroken boy unable to confess love, settling for ultimate friendship.",cf:"high"},
+  {l:"te",m:"Badri",y:2000,c:"Badri (Pawan Kalyan)",s:"నువ్వు నందా అయితే, నేను బద్రి! బద్రీనాథ్! అయితే ఏంటి?",r:"Nuvvu Nanda aite, nenu Badri! Badrinath! Aite enti?",t:"If you are Nanda, I am Badri! Badrinath! So what?",x:"A fearless young man dismisses the reputation of a powerful adversary.",cf:"high"},
+  {l:"te",m:"Narasimha Naidu",y:2001,c:"Narasimha Naidu (Balakrishna)",s:"కత్తులతో కాదురా, కంటి చూపుతో చంపేస్తా!",r:"Katthulatho kaadura, kanti chuputho champestaa!",t:"Not with swords, I will kill you with just my eyesight!",x:"A faction leader warns rivals about his absolute authority.",cf:"high"},
+  {l:"te",m:"Kushi",y:2001,c:"Siddhu (Pawan Kalyan)",s:"అమ్మాయిలు ఎప్పుడూ ఇంతే, మనసులో ఒకటి పెట్టుకుని బయటకి ఇంకోలా ప్రవర్తిస్తారు.",r:"Ammayilu eppudu inthe, manasulo okati pettukuni bayataki inkola pravarthistaru.",t:"Girls are always like this — one thing in their heart, another on the outside.",x:"A frustrated protagonist tries to decipher his love interest's mixed signals.",cf:"high"},
+  {l:"te",m:"Kushi",y:2001,c:"Siddhu (Pawan Kalyan)",s:"నేను నిన్ను ప్రేమించడం లేదు... కానీ నీకు ఏమైనా అయితే నేను తట్టుకోలేను.",r:"Nenu ninnu preminchadam ledu... kaani neeku emaina aite nenu thattukolenu.",t:"I don't love you... but if anything happens to you, I can't bear it.",x:"The ego-driven protagonist masks deep love behind concern.",cf:"high"},
+  {l:"te",m:"Nuvvu Naku Nachav",y:2001,c:"Venky (Venkatesh)",s:"నీకు కోపం వస్తే అరవగలవు, నాకు కోపం వస్తే కోయగలను.",r:"Neeku kopam vasthe aravagalavu, naaku kopam vasthe koyagalanu.",t:"If you get angry you can shout, if I get angry I can slaughter.",x:"The soft-spoken hero drops his facade to silently threaten a bully.",cf:"high"},
+  {l:"te",m:"Nuvvu Naku Nachav",y:2001,c:"Venky (Venkatesh)",s:"మీ అమ్మాయంటే నాకు చాలా ఇష్టం... కానీ నా ప్రాణం కన్నా ఇష్టం కాదు.",r:"Mee ammayante naaku chaala ishtam... kaani naa praanam kanna ishtam kaadu.",t:"I like your daughter a lot... but not more than my own life.",x:"The honest hero explains practical limits of his affection to her father.",cf:"high"},
+  {l:"te",m:"Idiot",y:2002,c:"Chanti (Ravi Teja)",s:"కమీషనర్ కూతురు అయితే భయపడిపోతామా... కమీషనర్ కూతుర్లకి మొగుళ్లు రారా?",r:"Commissioner kuthuru aite bhayapadipotama... commissioner kuthurlaki mogudlu raara?",t:"Should I be scared just because she is the Commissioner's daughter?",x:"A rebellious youth challenges police authority over his romantic choices.",cf:"high"},
+  {l:"te",m:"Aadi",y:2002,c:"Aadi Kesava Reddy (Jr. NTR)",s:"అరవకు! అమ్మతోడు అడ్డంగా నరికేస్తా!",r:"Aravaku! Ammathodu addanga narikestaa!",t:"Don't shout! I swear on my mother, I'll hack you to pieces!",x:"A fiery young man threatens an arrogant villain to assert dominance.",cf:"high"},
+  {l:"te",m:"Indra",y:2002,c:"Indrasena Reddy (Chiranjeevi)",s:"వీర శంకర్ రెడ్డి... మొక్కే కదా అని పీకేస్తే, పీక కోస్తా!",r:"Veera Shankar Reddy... mokkey kada ani peekeste, peeka kostaa!",t:"If you pluck it thinking it's just a sapling, I'll slit your throat!",x:"A stern warning not to underestimate him or his family's legacy.",cf:"high"},
+  {l:"te",m:"Manmadhudu",y:2002,c:"Abhiram (Nagarjuna)",s:"నేను ఆడవాళ్ళని నమ్మను... వాళ్ళని అసహ్యించుకుంటాను.",r:"Nenu aadavaallani nammanu... vaallani asahyinchukuntanu.",t:"I don't trust women... I despise them.",x:"A cynical manager expresses misogyny born from past heartbreak.",cf:"high"},
+  {l:"te",m:"Khadgam",y:2002,c:"Koti (Ravi Teja)",s:"ఒక ఇండియన్ గా చెబుతున్నాను... మేరా భారత్ మహాన్.",r:"Oka Indian ga chebuthunnanu... Mera Bharat Mahaan.",t:"I am saying this as an Indian... My India is great.",x:"An aspiring actor patriotically defends his country against terrorists.",cf:"high"},
+  {l:"te",m:"Khadgam",y:2002,c:"Amjad (Prakash Raj)",s:"పాకిస్తాన్ జిందాబాద్ అంటే మాకు ఎలాంటి అభ్యంతరం లేదు, కానీ హిందుస్తాన్ ముర్దాబాద్ అంటే... నరికేస్తాం!",r:"Pakistan zindabad ante maaku elanti abhyantaram ledu, kaani Hindustan murdabad ante... narikestaam!",t:"No objection if you say Pakistan Zindabad, but if you say Hindustan Murdabad... we'll slaughter you!",x:"A patriotic Indian Muslim defends his country against religious extremism.",cf:"high"},
+  {l:"te",m:"Takkari Donga",y:2002,c:"Raja (Mahesh Babu)",s:"ఈ తుపాకీకి ప్రాణం తీయడమే తెలుసు.",r:"Ee thupaakiki pranam teeyadame thelusu.",t:"This gun only knows how to take lives.",x:"A skilled cowboy warns adversaries about his lethal marksmanship.",cf:"high"},
+  {l:"te",m:"Nuvve Nuvve",y:2002,c:"Rishi (Tarun)",s:"అమ్మాయిలు కాఫీ లాంటివాళ్ళు... తొందరగా చల్లారిపోతారు.",r:"Ammayilu coffee laantivaallu... thondaraga challaripotharu.",t:"Girls are like coffee... they cool down quickly.",x:"A cynical wealthy youth shares his skeptical view of romance.",cf:"high"},
+  {l:"te",m:"Santosham",y:2002,c:"Karthik (Nagarjuna)",s:"సంతోషం సగం బలం.",r:"Santhosham sagam balam.",t:"Happiness is half your strength.",x:"A cheerful architect explains his philosophy for overcoming hardship.",cf:"high"},
+  {l:"te",m:"Tagore",y:2003,c:"Tagore (Chiranjeevi)",s:"తెలుగు భాషలో నాకు నచ్చని ఒకే ఒక్క పదం... క్షమించడం.",r:"Telugu bhashalo naaku nachani oke okka padam... kshaminchadam.",t:"There is only one word I dislike in Telugu... forgiveness.",x:"A vigilante rejects a corrupt official's plea for mercy before executing him.",cf:"high"},
+  {l:"te",m:"Okkadu",y:2003,c:"Ajay (Mahesh Babu)",s:"నేను హైదరాబాద్ లోనే ఉంటాను, రోజూ చార్మినార్ దగ్గరికొస్తాను... దమ్ముంటే నన్ను పట్టుకోమను.",r:"Nenu Hyderabad lone untanu, roju Charminar daggarikostanu... dammunte nannu pattukomanu.",t:"I'll stay in Hyderabad, come to Charminar daily... tell him to catch me if he has the guts.",x:"Ajay boldly challenges a dangerous factionist on his home turf.",cf:"high"},
+  {l:"te",m:"Okkadu",y:2003,c:"Obul Reddy (Prakash Raj)",s:"నీకు ముద్దుగా అనిపిస్తే నాకు ముచ్చటేస్తుంది.",r:"Neeku mudduga anipisthe naaku mucchatestundi.",t:"If you find it cute, I find it delightful.",x:"The obsessed villain creepily romanticizes the heroine's resistance.",cf:"high"},
+  {l:"te",m:"Arya",y:2004,c:"Arya (Allu Arjun)",s:"ఫీల్ మై లవ్... వన్ సైడ్ లవ్.",r:"Feel my love... one side love.",t:"Feel my love... one-sided love.",x:"A persistent lover begs the girl to feel his unrequited love.",cf:"high"},
+  {l:"te",m:"Arya",y:2004,c:"Arya (Allu Arjun)",s:"ప్రేమించకపోవడం నీ ఇష్టం, ప్రేమించడం నా ఇష్టం.",r:"Preminchakapovadam nee ishtam, preminchadam naa ishtam.",t:"Not loving me is your choice, loving you is my choice.",x:"The protagonist calmly justifies his unrequited love to the heroine.",cf:"high"},
+  {l:"te",m:"Anji",y:2004,c:"Bhatia (Tinnu Anand)",s:"ఆత్మలింగం ఎక్కడున్నా నాదే!",r:"Aatmalingam ekkadunna naade!",t:"Wherever the Aatmalingam is, it is mine!",x:"An evil occultist declares his obsessive pursuit of a divine artifact.",cf:"high"},
+  {l:"te",m:"Shankar Dada M.B.B.S.",y:2004,c:"Dr. Ramalingeswara Rao (Brahmanandam)",s:"ఇక్కడ స్పేస్ లేదు, కానీ క్రియేట్ చేశారు.",r:"Ikkada space ledu, kaani create chesaru.",t:"There is no space here, but they created it.",x:"A pompous doctor hilariously fumbles a medical examination.",cf:"high"},
+  {l:"te",m:"Sye",y:2004,c:"Prudhvi (Nithiin)",s:"రగ్బీ అంటే ఆట కాదు, యుద్ధం!",r:"Rugby ante aata kaadu, yuddham!",t:"Rugby is not a game, it's a war!",x:"A student explains the brutal nature of a local rugby tournament.",cf:"high"},
+  {l:"te",m:"Venky",y:2004,c:"Gajala (Brahmanandam)",s:"ఎందుకురా ట్రైన్ లోంచి తోసేశారు?",r:"Endukura train lonchi thosesaru?",t:"Why did you push him off the train?",x:"A paranoid passenger comically interrogates youths about a non-existent murder.",cf:"high"},
+  {l:"te",m:"Venky",y:2004,c:"Gajala (Brahmanandam)",s:"నన్ను ఇన్వాల్వ్ చేయకండి రా బాబు!",r:"Nannu involve cheyakandi ra babu!",t:"Don't involve me, guys!",x:"A terrified passenger begs travelers not to drag him into a murder plot.",cf:"high"},
+  {l:"te",m:"Varsham",y:2004,c:"Venkat (Prabhas)",s:"ఒక వైపు నేను, ఇంకో వైపు నువ్వు...",r:"Oka vaipu nenu, inko vaipu nuvvu...",t:"Me on one side, you on the other...",x:"The hero passionately challenges the villain's authority over the heroine.",cf:"high"},
+  {l:"te",m:"Athadu",y:2005,c:"Nandu / Pardhu (Mahesh Babu)",s:"నిజం చెప్పకపోవడం అబద్ధం, అబద్ధాన్ని నిజం చేయాలనుకోవడం మోసం.",r:"Nijam cheppakapovadam abaddham, abaddhanni nijam cheyalanukovadam mosam.",t:"Not telling the truth is a lie; trying to make a lie the truth is deceit.",x:"The protagonist philosophically explains hiding facts vs manipulation.",cf:"high"},
+  {l:"te",m:"Chatrapathi",y:2005,c:"Sivaji / Chatrapathi (Prabhas)",s:"వాడు పోతే వీడు, వీడు పోతే నేను, నేను పోతే నా అమ్మమొగుడంటూ ఎవరైనా...",r:"Vaadu pothe veedu, veedu pothe nenu, nenu pothe naa ammamogudantu evaraina...",t:"If he falls, this one comes; if this one falls, I will come; if I fall, someone else will.",x:"An epic declaration of endless resistance against oppressors at a port.",cf:"high"},
+  {l:"te",m:"Chatrapathi",y:2005,c:"Sivaji / Chatrapathi (Prabhas)",s:"సరిహద్దులు గీసుకోవడానికి ఇది మీ తాత జాగ కాదురా... ఇండియా!",r:"Sarihaddulu geesukovadaniki idi mee thaatha jaaga kaadura... India!",t:"This isn't your grandfather's property to draw borders... it's India!",x:"The protagonist rejects local thugs claiming territorial ownership.",cf:"high"},
+  {l:"te",m:"Nuvvostanante Nenoddantana",y:2005,c:"Sivarama Krishna (Srihari)",s:"ఆకాశంలో సగం, అవకాశాల్లో సగం, ఆస్తుల్లో సగం...",r:"Aakasam lo sagam, avakasallo sagam, aasthullo sagam...",t:"Half in the sky, half in opportunities, half in properties...",x:"A proud brother advocates for women's equal rights and his sister's dignity.",cf:"high"},
+  {l:"te",m:"Bhadra",y:2005,c:"Bhadra (Ravi Teja)",s:"కొడితే తలకాయలు ఎగిరిపోవాలి!",r:"Kodithe thalakayalu egiripovaali!",t:"If hit, heads should fly!",x:"Violent mass threat issued to a rival gang.",cf:"high"},
+  {l:"te",m:"Pokiri",y:2006,c:"Pandu (Mahesh Babu)",s:"ఎవడు కొడితే దిమ్మతిరిగి మైండ్ బ్లాంక్ అయిపోద్దో, వాడే పండుగాడు.",r:"Evadu kodithe dimma tirigi mind blank aipoddo, vaade Pandugadu.",t:"Whoever's punch makes your head spin and mind go blank, that is Pandu.",x:"Pandu introduces his lethal reputation to a gang of thugs.",cf:"high"},
+  {l:"te",m:"Bommarillu",y:2006,c:"Siddhu (Siddharth)",s:"నాకెప్పుడూ ఏది కావాలో అది ఇవ్వలేదు... నాకు నచ్చినట్టు ఉండనివ్వలేదు.",r:"Nakeppudu edi kavalo adi ivvaledu... naku nachinattu undanivvaledu.",t:"You never gave me what I wanted... you never let me live as I liked.",x:"An emotional outburst from a son suffocated by his father's overprotection.",cf:"high"},
+  {l:"te",m:"Bommarillu",y:2006,c:"Haasini (Genelia D'Souza)",s:"హాసిని, నా పేరు హాసిని.",r:"Haasini, naa peru Haasini.",t:"Haasini, my name is Haasini.",x:"The bubbly heroine's energetic, repetitive self-introduction.",cf:"high"},
+  {l:"te",m:"Vikramarkudu",y:2006,c:"ASP Vikram Singh Rathod (Ravi Teja)",s:"నా పేరు విక్రమ్ సింగ్ రాథోడ్, వన్స్ ఐ స్టెప్ ఇన్, హిస్టరీ రిపీట్స్!",r:"Naa peru Vikram Singh Rathod, once I step in, history repeats!",t:"My name is Vikram Singh Rathod, once I step in, history repeats!",x:"A relentless cop introduces his feared reputation to corrupt politicians.",cf:"high"},
+  {l:"te",m:"Vikramarkudu",y:2006,c:"Athili Sathi Babu (Ravi Teja)",s:"అతిలి సత్తిబాబు... ఏరియా పాతబస్తీ.",r:"Athili Sathi Babu... area paathabasthi.",t:"Athili Sathi Babu... area Old City.",x:"A street-smart thief boldly introduces himself before a scam.",cf:"high"},
+  {l:"te",m:"Sri Ramadasu",y:2006,c:"Kancharla Gopanna (Nagarjuna)",s:"అణువణువున రామ నామమే నిండి ఉన్నది.",r:"Anuvanuvuna Rama namame nindi unnadi.",t:"Every atom is filled with the name of Rama.",x:"The saint expresses absolute devotion to Lord Rama despite suffering.",cf:"medium"},
+  {l:"te",m:"Stalin",y:2006,c:"Stalin (Chiranjeevi)",s:"ఎవరైనా కష్టంలో ఉంటే వాళ్లకి ఒక చెయ్యి సాయం చెయ్యి...",r:"Evaraina kashtamlo unte vaallaki oka cheyyi saayam cheyyi...",t:"If someone is in trouble, lend them a helping hand...",x:"An ex-army major explains his pay-it-forward chain of good deeds.",cf:"high"},
+  {l:"te",m:"Rakhi",y:2006,c:"Rakhi (Jr. NTR)",s:"ఆడపిల్ల పుడితే మురిసిపోవాలి, భయపడకూడదు.",r:"Aadapilla pudithe murisipovaali, bhayapadakoodadu.",t:"When a girl child is born, one should rejoice, not fear.",x:"A grief-stricken brother lectures society on dowry harassment.",cf:"high"},
+  {l:"te",m:"Happy",y:2006,c:"Bunny (Allu Arjun)",s:"నేను పిజ్జా డెలివరీ బాయ్ ని, ఇస్తే తీసుకుంటా... లాక్కుంటే కొడతా!",r:"Nenu pizza delivery boy ni, isthe teesukunta... laakkunte kodathaa!",t:"I'm a pizza delivery boy, if you give I'll take... if you snatch I'll hit!",x:"A carefree youth clarifies his boundaries to corrupt police.",cf:"high"},
+  {l:"te",m:"Godavari",y:2006,c:"Seetha (Kamalinee Mukherjee)",s:"నాకు అన్నీ తెలుసు అని అనుకోను, కానీ నాకు నచ్చింది నేను చేస్తాను.",r:"Naaku anni thelusu ani anukonu, kaani naaku nachindi nenu chesthanu.",t:"I don't think I know everything, but I do exactly what I like.",x:"An independent woman quietly asserts her autonomy.",cf:"high"},
+  {l:"te",m:"Desamuduru",y:2007,c:"Bala Govind (Allu Arjun)",s:"ఎక్కడ నెగ్గాలో కాదురా, ఎక్కడ తగ్గాలో తెలిసినోడే గొప్పోడు.",r:"Ekkada neggalo kaadura, ekkada thaggalo thelisinode goppodu.",t:"A great man is not one who knows where to win, but where to yield.",x:"A reckless youth imparts a lesson about humility in combat.",cf:"high"},
+  {l:"te",m:"Yamadonga",y:2007,c:"Raja (Jr. NTR)",s:"ఈ నందమూరి తారక రామారావు వంశం... ఎవరికీ తల వంచదు!",r:"Ee Nandamuri Taraka Ramarao vamsham... evariki thala vanchadu!",t:"This lineage of Nandamuri Taraka Ramarao... will never bow to anyone!",x:"The hero channels his legendary grandfather to assert pride in Hell.",cf:"high"},
+  {l:"te",m:"Yamadonga",y:2007,c:"Raja (Jr. NTR)",s:"యమకింకరులా? యమ పింకర్లు!",r:"Yamakinkarulaa? Yama pinkarlu!",t:"Yama's guards? Yama's pinkars!",x:"A fearless thief comically dismisses underworld enforcers.",cf:"high"},
+  {l:"te",m:"Tulasi",y:2007,c:"Tulasi Ram (Venkatesh)",s:"వాడు నా కొడుకురా, వాడి ఒంట్లో ప్రవహిస్తుంది నా రక్తం!",r:"Vaadu naa kodukura, vaadi ontlo pravahisthundi naa raktham!",t:"He is my son, it is my blood flowing in his body!",x:"A fiercely protective father warns those threatening his child.",cf:"high"},
+  {l:"te",m:"Sivaji",y:2007,c:"Sivaji (Rajinikanth)",s:"పందులే గుంపుగా వస్తాయి... సింహం సింగిల్ గా వస్తుంది!",r:"Pandule gumpugaa vasthayi... simham single ga vasthundi!",t:"Only pigs come in a group... a lion comes singly!",x:"The hero belittles a mob by declaring his apex predator status.",cf:"high"},
+  {l:"te",m:"Dhee",y:2007,c:"Srinivas (Vishnu Manchu)",s:"కొట్టానంటే మెడికల్ షాపులో బ్యాండ్ ఎయిడ్లు అయిపోవాలి.",r:"Kottanante medical shop-lo band-aid-lu aipovaali.",t:"If I hit you, medical shops should run out of band-aids.",x:"The hero comically threatens a local rowdy.",cf:"high"},
+  {l:"te",m:"Jalsa",y:2008,c:"Sanjay Sahu (Pawan Kalyan)",s:"యుద్ధంలో గెలవడమంటే శత్రువుని చంపడం కాదు, ఓడించడం!",r:"Yuddhamlo gelavadamante shatruvuni champadam kaadu, odinchadam!",t:"Winning a war isn't killing the enemy, it's defeating them!",x:"A former naxalite shares wisdom on the true meaning of victory.",cf:"high"},
+  {l:"te",m:"Jalsa",y:2008,c:"Sanjay Sahu (Pawan Kalyan)",s:"ఇసుకలో రాస్తే చెరిగిపోతుంది...",r:"Isukalo raasthe cherigipothundi...",t:"If written in sand, it erases...",x:"Hero reflects on the fleeting nature of memories.",cf:"high"},
+  {l:"te",m:"Krishna",y:2008,c:"Krishna (Ravi Teja)",s:"నా పేరు కృష్ణ, ఊరు విజయవాడ...",r:"Naa peru Krishna, ooru Vijayawada...",t:"My name is Krishna, my city is Vijayawada...",x:"The energetic protagonist introduces himself repeatedly.",cf:"high"},
+  {l:"te",m:"Gamyam",y:2008,c:"Gaali Seenu (Allari Naresh)",s:"నువ్వు ఎవరు అని అడిగితే... బ్యాంకు బాలన్స్ చెప్పే సమాజం రా ఇది.",r:"Nuvvu evaru ani adigithe... bank balance cheppe samajam ra idi.",t:"If you ask who someone is... this society replies with their bank balance.",x:"A cynical vagabond comments on the materialistic nature of the world.",cf:"high"},
+  {l:"te",m:"Bujjigadu",y:2008,c:"Bujji (Prabhas)",s:"నా పేరు బుజ్జిగాడు, ఊరు చెన్నై.",r:"Naa peru Bujjigadu, ooru Chennai.",t:"My name is Bujjigadu, my city is Chennai.",x:"A hot-headed Rajinikanth fan introduces himself before beating up goons.",cf:"high"},
+  {l:"te",m:"Ready",y:2008,c:"McDowells Murthy (Brahmanandam)",s:"అనకొండ అలిగితే ఎలా ఉంటుందో తెలుసా?",r:"Anaconda aligithe elaa untundo telusaa?",t:"Do you know how it is if an Anaconda gets offended?",x:"A delusional auditor falsely boasts about his imaginary reputation.",cf:"high"},
+  {l:"te",m:"Neninthe",y:2008,c:"Ravi (Ravi Teja)",s:"ఈ రోజు కాకపోతే రేపు, రేపు కాకపోతే ఎల్లుండి... ఎప్పటికైనా నేను కొడతాను!",r:"Ee roju kakapothe repu, repu kakapothe ellundi... eppatikaina nenu kodathanu!",t:"If not today then tomorrow... someday I will strike!",x:"A struggling AD screams out his unyielding ambition.",cf:"high"},
+  {l:"te",m:"Neninthe",y:2008,c:"Ravi (Ravi Teja)",s:"సినిమా వాళ్ళు అంటే ఎందుకంత చిన్నచూపు?",r:"Cinema vaallu ante endukantha chinnachoopu?",t:"Why look down on cinema people so much?",x:"An impassioned defense of the film industry against societal judgment.",cf:"high"},
+  {l:"te",m:"Magadheera",y:2009,c:"Kala Bhairava (Ram Charan)",s:"ఒక్కొక్కడిని కాదు షేర్ ఖాన్, వంద మందిని ఒకేసారి రమ్మను.",r:"Okkokadini kaadu Sher Khan, vanda mandini okesari rammanu.",t:"Not one by one, Sher Khan, tell all hundred to come at once.",x:"A legendary warrior challenges a warlord to send his entire guard.",cf:"high"},
+  {l:"te",m:"Magadheera",y:2009,c:"Kala Bhairava (Ram Charan)",s:"నా పేరు భైరవ... కాల భైరవ!",r:"Naa peru Bhairava... Kala Bhairava!",t:"My name is Bhairava... Kala Bhairava!",x:"The warrior introduces himself before laying down his life for his princess.",cf:"high"},
+  {l:"te",m:"Arundhati",y:2009,c:"Pasupathi (Sonu Sood)",s:"బొమ్మాళీ... నిన్ను వదలా బొమ్మాళీ!",r:"Bommaali... ninnu vadalaa bommaali!",t:"Bommali... I won't leave you, Bommali!",x:"The evil sorcerer obsessively taunts the heroine even from beyond the grave.",cf:"high"},
+  {l:"te",m:"Arundhati",y:2009,c:"Jejamma (Anushka Shetty)",s:"వదలనురా... నిన్ను వదలను!",r:"Vadalanura... ninnu vadalanu!",t:"I won't leave you... I won't leave you!",x:"Heroine violently cursing the evil sorcerer.",cf:"high"},
+  {l:"te",m:"Kick",y:2009,c:"Kalyan (Ravi Teja)",s:"ఇదంతా కాదు... నాకు కిక్ కావాలి.",r:"Idantha kaadu... naaku kick kaavali.",t:"Not all this... I want a kick.",x:"An adrenaline junkie explains his life philosophy of seeking excitement.",cf:"high"},
+  {l:"te",m:"Arya 2",y:2009,c:"Arya (Allu Arjun)",s:"నేనంటే అసహ్యమే కదా... ఐ డోంట్ కేర్... నా ప్రేమ చాలు నాకు.",r:"Nenante asahyame kada... I don't care... naa prema chaalu naaku.",t:"You hate me, right... I don't care... my love is enough for me.",x:"An unpredictable, obsessive lover accepts rejection but refuses to stop loving.",cf:"high"},
+  {l:"te",m:"Billa",y:2009,c:"DSP Krishnamoorthy (Krishnam Raju)",s:"బిల్లా చచ్చిపోవడం ఏంటి, ఎవరికైనా ఛాన్స్ ఇస్తాడా?",r:"Billa chachipovadam enti, evarikaina chance isthada?",t:"How could Billa die, does he ever give anyone a chance?",x:"A seasoned cop expresses disbelief at the death of an unkillable don.",cf:"high"},
+  {l:"te",m:"Simha",y:2010,c:"Srimannarayana (Balakrishna)",s:"చూడు, ఒక వైపే చూడు, రెండో వైపు చూడాలనుకోకు, తట్టుకోలేవు!",r:"Chudu, oka vaipe chudu, rendo vaipu chudalanukoku, tattukolevu!",t:"Look at one side only, don't try to look at the other, you won't handle it!",x:"A peaceful professor warns a villain about his hidden past.",cf:"high"},
+  {l:"te",m:"Khaleja",y:2010,c:"Seetharam Raju (Mahesh Babu)",s:"దేవుడు కనపడడు, కానీ ఎక్కడో ఒకచోట మనిషి రూపంలో వచ్చి కాపాడతాడు.",r:"Devudu kanapadadu, kaani ekkado okachota manishi roopamlo vachhi kaapadathadu.",t:"God is invisible, but somewhere he comes in human form and saves us.",x:"A cab driver is forced to accept his destined role as a savior.",cf:"medium"},
+  {l:"te",m:"Khaleja",y:2010,c:"Seetharam Raju (Mahesh Babu)",s:"నేను చెప్పేది విను, నేను కొడితే చచ్చిపోతావ్.",r:"Nenu cheppedi vinu, nenu kodithe chachipothav.",t:"Listen to me, if I hit you, you will die.",x:"A frustrated cab driver tries to avoid lethal violence with goons.",cf:"high"},
+  {l:"te",m:"Leader",y:2010,c:"Arjun Prasad (Rana Daggubati)",s:"కులాల పేరుతో, మతాల పేరుతో ఓట్లు అడిగే హక్కు ఎవరికీ లేదు!",r:"Kulala perutho, mathala perutho votlu adige hakku evariki ledu!",t:"Nobody has the right to ask for votes in the name of caste or religion!",x:"An idealistic CM demands development-based politics.",cf:"high"},
+  {l:"te",m:"Adhurs",y:2010,c:"Chari (Jr. NTR)",s:"బ్రాహ్మణుడికి కోపం వస్తే భస్మం అయిపోతావ్!",r:"Braahmanudiki kopam vasthe bhasmam aipothaav!",t:"If a Brahmin gets angry, you will turn to ash!",x:"A traditionally raised priest humorously attempts to sound threatening.",cf:"high"},
+  {l:"te",m:"Darling",y:2010,c:"Prabhas (Prabhas)",s:"డార్లింగ్!",r:"Darling!",t:"Darling!",x:"A universally appealing catchphrase to disarm friends and foes.",cf:"high"},
+  {l:"te",m:"Brundavanam",y:2010,c:"Krish (Jr. NTR)",s:"సిటీ నించి వచ్చాడు, సాఫ్ట్ గా ఉన్నాడు అనుకుంటున్నావేమో... కోసేస్తా!",r:"City ninchi vachadu, soft ga unnadu anukuntunnavemo... kosestaa!",t:"You think he came from the city and is soft... I'll slit you!",x:"An undercover city boy reveals his violent capabilities to a factionist.",cf:"high"},
+  {l:"te",m:"Gaganam",y:2011,c:"Ravi (Nagarjuna)",s:"ప్రాణాలు కాపాడే హక్కు ఎవరికైనా ఉంది... ప్రాణాలు తీసే హక్కు మాత్రం దేవుడికే ఉంది.",r:"Praanaalu kaapade hakku evarikaina undi... praanaalu theese hakku maathram devudike undi.",t:"Anyone has the right to save lives... only God has the right to take them.",x:"An NSG commando talks about his moral duty dealing with hijackers.",cf:"medium"},
+  {l:"te",m:"Dookudu",y:2011,c:"Ajay (Mahesh Babu)",s:"మైండ్ బ్లాంక్ అయిపోయిందా?",r:"Mind blank aipoyindaa?",t:"Has your mind gone blank?",x:"The undercover cop uses this catchphrase to mock villains.",cf:"high"},
+  {l:"te",m:"Dookudu",y:2011,c:"Shankar Narayana (Prakash Raj)",s:"వాడు ఏడిస్తే చూడాలనిపిస్తుంది, నవ్వితే చూడాలనిపిస్తుంది, ఎందుకో వాడు నా వాడనిపిస్తుంది.",r:"Vaadu edithe chudalanipisthundi, navvithe chudalanipisthundi, enduko vaadu naa vaadanipisthundi.",t:"When he cries or smiles I want to watch, somehow it feels like he is mine.",x:"A recovering politician feels a deep connection to his undercover son.",cf:"high"},
+  {l:"te",m:"Dookudu",y:2011,c:"Shankar Narayana (Prakash Raj)",s:"భయం నా బయోడేటా లోనే లేదు.",r:"Bhayam naa biodata lone ledu.",t:"Fear is not even in my biodata.",x:"Honest politician fearlessly dismissing a death threat.",cf:"high"},
+  {l:"te",m:"Mirapakaay",y:2011,c:"Rishi (Ravi Teja)",s:"వయొలెన్స్ వద్దు, పీస్ ముద్దు!",r:"Violence vaddu, peace muddu!",t:"No violence, only peace!",x:"An undercover cop hilariously attempts to teach non-violence to criminals.",cf:"medium"},
+  {l:"te",m:"Oosaravelli",y:2011,c:"Tony (Jr. NTR)",s:"కరెంట్ తీగ కూడా నా లాగే సన్నంగా ఉంటుంది, కానీ పట్టుకుంటే ప్రాణాలు పోతాయి.",r:"Current theega kooda naa lage sannamga untundi, kaani pattukunte pranaalu pothayi.",t:"An electric wire is also thin like me, but touch it and lives are lost.",x:"The hero mocking heavily built villains who underestimate his frame.",cf:"high"},
+  {l:"te",m:"Gabbar Singh",y:2012,c:"Gabbar Singh (Pawan Kalyan)",s:"నాకు కొంచెం తిక్కుంది, కానీ దానికో లెక్కుంది.",r:"Naaku konchem thikkundi, kaani daaniko lekkundi.",t:"I have a bit of madness, but there is a calculation to it.",x:"The eccentric cop explains his unpredictable strategic style.",cf:"high"},
+  {l:"te",m:"Gabbar Singh",y:2012,c:"Gabbar Singh (Pawan Kalyan)",s:"జో గబ్బర్ సింగ్ కి భయపడ్తాడో... వాడు చచ్చినట్టే!",r:"Jo Gabbar Singh ki bhayapadtado... vaadu chachinatte!",t:"Whoever is afraid of Gabbar Singh... is as good as dead!",x:"The unorthodox cop adapts a classic line to terrify local rowdies.",cf:"high"},
+  {l:"te",m:"Gabbar Singh",y:2012,c:"Gabbar Singh (Pawan Kalyan)",s:"నేను ట్రెండ్ ఫాలో అవ్వను, సెట్ చేస్తా!",r:"Nenu trend follow avvanu, set chestha!",t:"I don't follow the trend, I set it!",x:"The hero establishing his unique, unorthodox dominance.",cf:"high"},
+  {l:"te",m:"Julayi",y:2012,c:"Ravi (Allu Arjun)",s:"లాజిక్‌లు ఎవరూ నమ్మరు, అందరికీ మ్యాజిక్‌లే కావాలి.",r:"Logic-lu evaru nammaru, andariki magic-le kaavali.",t:"Nobody believes in logic, everyone just wants magic.",x:"A hyper-intelligent youth explains why people fall for quick-rich schemes.",cf:"high"},
+  {l:"te",m:"Julayi",y:2012,c:"Ravi (Allu Arjun)",s:"గెలుకుతున్నావ్! నన్ను గెలుకుతున్నావ్!",r:"Gelkuthunnav! Nannu gelkuthunnav!",t:"You are provoking me!",x:"Hero playfully warning the heroine not to push his buttons.",cf:"high"},
+  {l:"te",m:"Eega",y:2012,c:"Nani / Eega (Nani)",s:"నన్ను చంపడానికి నువ్వు వస్తే... నిన్ను చంపడానికి నేను వస్తాను!",r:"Nannu champadaniki nuvvu vasthe... ninnu champadaniki nenu vastanu!",t:"If you come to kill me... I will come to kill you!",x:"A reincarnated housefly declares war against the billionaire who killed him.",cf:"medium"},
+  {l:"te",m:"Eega",y:2012,c:"Sudeep (Kichcha Sudeepa)",s:"ఒక ఈగ నన్ను చంపాలని చూస్తోంది.",r:"Oka eega nannu champalani choosthondi.",t:"A housefly is trying to kill me.",x:"The villain's disbelief and madness as he is tormented by a tiny insect.",cf:"high"},
+  {l:"te",m:"Businessman",y:2012,c:"Surya Bhai (Mahesh Babu)",s:"నేను టెన్త్ క్లాస్ లో ఉన్నప్పుడే కన్ఫర్మ్ అయిపోయింది... నాకో ఎక్స్పైరీ డేట్ ఉందని!",r:"Nenu tenth class lo unnappude confirm aipoyindi... naako expiry date undani!",t:"It was confirmed in tenth grade... that I have an expiry date!",x:"The ruthless gangster reveals his fearless acceptance of his death.",cf:"high"},
+  {l:"te",m:"Businessman",y:2012,c:"Surya Bhai (Mahesh Babu)",s:"యుద్ధం చేతకానివాడే ధర్మం గురించి మాట్లాడతాడు.",r:"Yuddham chetakani vade dharmam gurinchi matladatadu.",t:"Only the one who cannot fight talks about righteousness.",x:"A cynical gangster justifying his ruthless tactics.",cf:"high"},
+  {l:"te",m:"Mirchi",y:2013,c:"Jai (Prabhas)",s:"కటౌట్ చూసి కొన్ని కొన్ని నమ్మేయాలి డ్యూడ్.",r:"Cutout chusi konni konni nammeyali dude.",t:"Looking at the stature, you have to believe some things, dude.",x:"The hero responds to thugs who doubt his ability to take them all on.",cf:"high"},
+  {l:"te",m:"Mirchi",y:2013,c:"Jai (Prabhas)",s:"కత్తి వాడటం మొదలుపెడితే...",r:"Katthi vaadatam modalupedithe...",t:"If I start using a sword...",x:"Hero reluctantly hinting at his extremely violent past.",cf:"high"},
+  {l:"te",m:"Attarintiki Daredi",y:2013,c:"Gautham Nanda (Pawan Kalyan)",s:"చూడప్పా సిద్దప్పా... నేను సింహం లాంటోడ్ని, అది గడ్డం గీసుకోలేదు, నేను గీసుకోగలను...",r:"Chudappaa Siddhappa... nenu simham lantonni, adi gaddam geesukoledu, nenu geesukogalanu...",t:"Look Siddhappa... I am like a lion, it can't shave its beard, I can...",x:"The hero mockingly compares himself to a lion while warning a goon.",cf:"high"},
+  {l:"te",m:"Attarintiki Daredi",y:2013,c:"Baddam Bhaskar (Brahmanandam)",s:"అహల్య అమాయకురాలు...",r:"Ahalya amayakuralu...",t:"Ahalya is innocent...",x:"A fake ascetic attempts to sound deeply philosophical.",cf:"high"},
+  {l:"te",m:"Balupu",y:2013,c:"Ravi (Ravi Teja)",s:"ఏంట్రా చూస్తున్నావ్? బలుపు ఆ?",r:"Entra choosthunnav? Balupu aa?",t:"What are you looking at? Is it arrogance?",x:"The hero confronts street thugs who try to intimidate him with glares.",cf:"high"},
+  {l:"te",m:"Baadshah",y:2013,c:"Baadshah (Jr. NTR)",s:"బాద్ షా వన్స్ ఫిక్స్ అయితే, టార్గెట్ ఫినిష్!",r:"Baadshah once fix aithe, target finish!",t:"If Baadshah fixes on something once, the target is finished!",x:"An undercover mafia don sets an unchangeable resolution.",cf:"high"},
+  {l:"te",m:"Nayak",y:2013,c:"Cherry (Ram Charan)",s:"వీడు నమ్మితే ప్రాణమైనా ఇస్తాడు, మోసం చేస్తే ప్రాణమైనా తీస్తాడు.",r:"Veedu nammithe pranamaina isthadu, mosam chesthe pranamaina teesthadu.",t:"If he trusts you he'll give his life; if you betray him he'll take yours.",x:"An ally explains the hero's absolute loyalty system to villains.",cf:"medium"},
+  {l:"te",m:"Seethamma Vakitlo Sirimalle Chettu",y:2013,c:"Relangi Mavayya (Prakash Raj)",s:"ఏంట్రా బాబు మీరు?",r:"Entra babu meeru?",t:"What are you guys, man?",x:"A good-natured man chuckles at the complications created by modern people.",cf:"high"},
+  {l:"te",m:"1: Nenokkadine",y:2014,c:"Gautham (Mahesh Babu)",s:"నాకు ఒక గతం ఉంది, అది నిజం.",r:"Naaku oka gatham undi, adi nijam.",t:"I have a past, that is the truth.",x:"A rockstar with a psychological disorder insists his memories are real.",cf:"high"},
+  {l:"te",m:"Legend",y:2014,c:"Jaidev (Balakrishna)",s:"ఫ్లూట్ జింక ముందు ఊదు, సింహం ముందు కాదు!",r:"Flute jinka mundu oodu, simham mundu kaadu!",t:"Blow your flute in front of a deer, not in front of a lion!",x:"The hero dismisses a villain's warnings, establishing his apex status.",cf:"high"},
+  {l:"te",m:"Race Gurram",y:2014,c:"Kill Bill Pandey (Brahmanandam)",s:"దేవుడా...",r:"Devudaa...",t:"Oh God...",x:"A frustrated special police officer sighs at the chaos around him.",cf:"high"},
+  {l:"te",m:"Race Gurram",y:2014,c:"Ram (Shaam)",s:"దేవుడు వరమిస్తాడు...",r:"Devudu varamisthaadu...",t:"God grants boons...",x:"Upright cop explaining the unforgiving nature of the law.",cf:"high"},
+  {l:"te",m:"Aagadu",y:2014,c:"Encounter Shankar (Mahesh Babu)",s:"ప్రతి వాడూ పులి, సింహం అనుకుంటే... ఏ జూ లో వేద్దాం రా వీళ్ళని?",r:"Prathi vaadu puli, simham anukunte... ee zoo lo veddaam ra veellani?",t:"If everyone is a tiger or lion... which zoo do we put them in?",x:"A trigger-happy cop mocks villains who compare themselves to fierce animals.",cf:"high"},
+  {l:"te",m:"Manam",y:2014,c:"Bittu (Nagarjuna)",s:"ప్రేమించటానికి కారణం అక్కర్లేదు, కానీ ద్వేషించటానికి మాత్రం ఒక కారణం కావాలి.",r:"Preminchataniki karanam akkarledu, kaani dweshinchataniki mathram oka karanam kaavali.",t:"You don't need a reason to love, but you need a reason to hate.",x:"A poignant reflection on the unconditional nature of true affection.",cf:"high"},
+  {l:"te",m:"Yevadu",y:2014,c:"Satya (Allu Arjun)",s:"ఒకడు చచ్చిపోతే ఏడ్చేవాళ్ళు పది మంది ఉంటారు, కానీ బ్రతికించేవాడు ఒక్కడే ఉంటాడు.",r:"Okadu chachipothe edchevallu padi mandi untaru, kaani brathikinchevadu okkade untadu.",t:"If someone dies ten people cry, but there is only one who saves lives.",x:"A dying man's justification for giving up his face to save a stranger.",cf:"medium"},
+  {l:"te",m:"Temper",y:2015,c:"Daya (Jr. NTR)",s:"ఇద్దరు కొట్టుకుంటే యుద్ధం... అదే ఒకడు మీద పడిపోతే దండయాత్ర! ఇది దయాగాడి దండయాత్ర!",r:"Iddaru kottukunte yuddham... ade okadu meeda padipothe dandayatra! Idi Daya gaadi dandayatra!",t:"Two fighting is war... one falling on many is an invasion! This is Daya's invasion!",x:"A corrupt cop turned righteous unleashes a massacre on thugs.",cf:"high"},
+  {l:"te",m:"Srimanthudu",y:2015,c:"Harsha (Mahesh Babu)",s:"ఊరు చాలా ఇచ్చింది, తిరిగి ఇచ్చేయాలి, లేకపోతే లావైపోతారు.",r:"Ooru chaala icchindi, tirigi iccheyali, lekapothe lavaipotaru.",t:"The village has given us a lot, we must give it back, otherwise we get bloated.",x:"A billionaire's son explains his motivation to develop a rural village.",cf:"high"},
+  {l:"te",m:"Srimanthudu",y:2015,c:"Ravikanth (Jagapathi Babu)",s:"సంపాదించడం లో ఉన్న కిక్, పంచడం లో కూడా ఉంటుంది.",r:"Sampadinchadam lo unna kick, panchadami lo kooda untundi.",t:"The kick in earning is also there in sharing.",x:"A billionaire understands his son's desire to give wealth back.",cf:"high"},
+  {l:"te",m:"S/O Satyamurthy",y:2015,c:"Viraj Anand (Allu Arjun)",s:"విలువలు గురించి మాట్లాడే హక్కు నాకు లేదు, కానీ నా నాన్నకి ఉంది.",r:"Viluvalu gurinchi matlade hakku naaku ledu, kaani naa nannaki undi.",t:"I don't have the right to talk about values, but my father does.",x:"A son sacrifices inherited wealth to protect his late father's honor.",cf:"high"},
+  {l:"te",m:"Baahubali: The Beginning",y:2015,c:"Kattappa (Sathyaraj)",s:"నా ప్రాణం పోయినా నా మాట జవదాటను.",r:"Naa praanam poyina naa maata javadatanu.",t:"Even if my life departs, I will not break my word.",x:"The loyal slave warrior swears an unbreakable oath to Mahishmati.",cf:"medium"},
+  {l:"te",m:"Baahubali: The Beginning",y:2015,c:"Sivagami (Ramya Krishnan)",s:"ఇదే నా మాట, నా మాటే శాసనం!",r:"Ide naa maata, naa maate shaasanam!",t:"This is my word, my word is the law!",x:"Queen Mother laying down an absolute royal decree.",cf:"high"},
+  {l:"te",m:"Gopala Gopala",y:2015,c:"Gopala Rao (Venkatesh)",s:"దేవుడు ఉన్నాడో లేడో నాకు తెలియదు కానీ... దేవుడి పేరుతో వ్యాపారం చేసేవాళ్లు మాత్రం ఉన్నారు.",r:"Devudu unnado ledo naaku theliyadu kaani... devudi perutho vyaapaaram chesevaallu maathram unnaru.",t:"I don't know if God exists but... there are people doing business in his name.",x:"An atheist shopkeeper condemns the commercialized religious establishment.",cf:"high"},
+  {l:"te",m:"Pelli Choopulu",y:2016,c:"Prashanth's friend (Priyadarshi)",s:"నా సావు నే చస్తా నీకెందుకు?",r:"Naa saavu ne chasta neekenduku?",t:"I will die my own death, why do you care?",x:"A hilarious, fatalistic response to someone criticizing his choices.",cf:"high"},
+  {l:"te",m:"Pelli Choopulu",y:2016,c:"Prashanth (Vijay Deverakonda)",s:"నాకు బద్ధకం ఎక్కువ, కానీ పని చేయాలని ఉంది.",r:"Naaku baddhakam ekkuva, kaani pani cheyalani undi.",t:"I have a lot of laziness, but I actively want to work.",x:"A hilariously honest self-reflection during a match-making.",cf:"high"},
+  {l:"te",m:"Janatha Garage",y:2016,c:"Anand (Jr. NTR)",s:"బలవంతుడు బలహీనుడ్ని భయపెట్టి బతకడం ఆనవాయితీ, బట్ ఫర్ ఎ చేంజ్... ఆ బలహీనుడి పక్కన కూడా ఒక బలవంతుడుంటాడు!",r:"Balavanthudu balaheenudni bhayapetti bathakadam aanavayithi, but for a change... aa balaheenudi pakkana kuda oka balavanthuduntadu!",t:"The strong terrifying the weak is tradition, but for a change... a strong man is beside the weak!",x:"The hero steps in to protect helpless citizens from mafia goons.",cf:"high"},
+  {l:"te",m:"Janatha Garage",y:2016,c:"Sathyam (Mohanlal)",s:"ఇది జనతా గ్యారేజ్... ఇక్కడ అన్నీ రిపేర్ చేయబడును.",r:"Idi Janatha Garage... ikkada anni repair cheyabadunu.",t:"This is Janatha Garage... everything will be repaired here.",x:"A warning that this garage fixes corrupt people too.",cf:"high"},
+  {l:"te",m:"A Aa",y:2016,c:"Anasuya Ramalingam (Samantha)",s:"రావణాసురుడు సీతను ఎత్తుకెళ్తే రామాయణం, అదే సీత రావణాసురుడితో వెళ్ళిపోతే...",r:"Ravanasurudu Seethanu etthukelthe Ramayanam, ade Seetha Ravanasuruditho vellipothe...",t:"If Ravana abducts Sita it's Ramayana; if Sita runs away with Ravana...",x:"The heroine playfully teases the hero about the prospect of eloping.",cf:"high"},
+  {l:"te",m:"Oopiri",y:2016,c:"Vikramadhitya (Nagarjuna)",s:"డబ్బుతో సంతోషాన్ని కొనలేం, కానీ డబ్బు ఉంటే ఆ సంతోషాన్ని వెతుక్కోవచ్చు.",r:"Dabbutho santhoshanni konalem, kaani dabbu unte aa santhoshanni vethukkovachu.",t:"We can't buy happiness with money, but with money we can search for it.",x:"A paralyzed billionaire explains his view on wealth and limitations.",cf:"medium"},
+  {l:"te",m:"Baahubali 2: The Conclusion",y:2017,c:"Amarendra Baahubali (Prabhas)",s:"తప్పు చేశావు దేవసేన, ఆడదాని మీద చెయ్యి వేస్తే నరకాల్సింది వేలు కాదు... తల!",r:"Thappu chesavu Devasena, aadadaani meeda cheyyi vesthe narakalsindi velu kaadu... thala!",t:"You erred Devasena — if a hand touches a woman, don't chop the fingers... the head!",x:"Baahubali corrects his wife before beheading a molester in court.",cf:"high"},
+  {l:"te",m:"Baahubali 2: The Conclusion",y:2017,c:"Amarendra Baahubali (Prabhas)",s:"నువ్వు నా పక్కన ఉన్నంతవరకు నన్ను చంపే మగాడు ఇంకా పుట్టలేదు మామా.",r:"Nuvvu naa pakkana unnanthavaraku nannu champe magaadu inka puttaledu maama.",t:"As long as you're by my side, the man who can kill me is not yet born, uncle.",x:"Baahubali expresses absolute trust in Kattappa before the tragic betrayal.",cf:"high"},
+  {l:"te",m:"Arjun Reddy",y:2017,c:"Arjun Reddy (Vijay Deverakonda)",s:"సఫరింగ్ ఈజ్ పర్సనల్, లెట్ హిమ్ సఫర్.",r:"Suffering is personal, let him suffer.",t:"Suffering is personal, let him suffer.",x:"A destructive surgeon insists that emotional pain must be endured alone.",cf:"high"},
+  {l:"te",m:"Arjun Reddy",y:2017,c:"Arjun Reddy (Vijay Deverakonda)",s:"ఏమోయ్... ఏంటి చూస్తున్నావ్? వాడు నా పిల్లని ఏడిపించాడు, నేను కొట్టాను.",r:"Emoy... enti chusthunnav? Vaadu naa pillani edipinchadu, nenu kottanu.",t:"Hey... what are you looking at? He made my girl cry, so I beat him up.",x:"An aggressive medical student bluntly justifies a brutal college brawl.",cf:"high"},
+  {l:"te",m:"Fidaa",y:2017,c:"Bhanumathi (Sai Pallavi)",s:"బద్మాష్, బల్సిందా?",r:"Badmash, balsindaa?",t:"Scoundrel, have you grown arrogant?",x:"A fiery village girl confronts the hero with raw Telangana slang.",cf:"high"},
+  {l:"te",m:"Fidaa",y:2017,c:"Bhanumathi (Sai Pallavi)",s:"వొళ్ళో పెట్టుకుని చూసుకుంటా...",r:"Vollo pettukuni choosukunta...",t:"I will keep you in my lap and care for you...",x:"Heroine making a deeply emotional promise of affection.",cf:"high"},
+  {l:"te",m:"Raja The Great",y:2017,c:"Raja (Ravi Teja)",s:"ఐ యామ్ బ్లైండ్, బట్ ఐ యామ్ ట్రైన్డ్.",r:"I am blind, but I am trained.",t:"I am blind, but I am trained.",x:"A visually impaired but skilled fighter dismisses his opponents' advantages.",cf:"high"},
+  {l:"te",m:"Jai Lava Kusa",y:2017,c:"Jai / Raavan (Jr. NTR)",s:"ఈ నాటకానికి ఏకైక ప్రేక్షకుడ్ని, డైరెక్టర్ ని, విలన్ ని... నేనే!",r:"Ee natakaniki ekaika prekshakudni, director ni, villain ni... nene!",t:"The only spectator, director, and villain of this play... is me!",x:"A stuttering villain declares control over a hostage situation.",cf:"high"},
+  {l:"te",m:"Khaidi No. 150",y:2017,c:"Kathi Seenu (Chiranjeevi)",s:"పొగరు నా ఒంట్లో ఉంటుంది...",r:"Pogaru naa ontlo untundi...",t:"Arrogance runs in my body...",x:"Swaggering self-introduction designed to intimidate enemies.",cf:"high"},
+  {l:"te",m:"DJ",y:2017,c:"Duvvada Jagannadham (Allu Arjun)",s:"మమ్మల్ని గెలికితే...",r:"Mammalni gelikithe...",t:"If you provoke us...",x:"Undercover vigilante firmly threatening local criminals.",cf:"high"},
+  {l:"te",m:"K.G.F: Chapter 1",y:2018,c:"Anand Ingalagi (Anant Nag)",s:"గ్యాంగ్ తో వచ్చేవాడు గ్యాంగ్ స్టర్, వాడు ఒక్కడే వస్తాడు... మాన్ స్టర్.",r:"Gang tho vacchevadu gangster, vaadu okkade vastadu... monster.",t:"The one with a gang is a gangster, the one who comes alone... monster.",x:"A journalist describes the mythical, terrifying aura of Rocky Bhai.",cf:"high"},
+  {l:"te",m:"Bharath Ane Nenu",y:2018,c:"Bharath Ram (Mahesh Babu)",s:"ప్రామిస్... నేను మాట ఇస్తే వెనక్కి తీసుకోను.",r:"Promise... nenu maata isthe venakki teesukonu.",t:"Promise... if I give my word, I don't take it back.",x:"The young CM grounds his political ideology in absolute accountability.",cf:"high"},
+  {l:"te",m:"Bharath Ane Nenu",y:2018,c:"Bharath Ram (Mahesh Babu)",s:"నేను అబద్ధం చెప్పను.",r:"Nenu abaddham cheppanu.",t:"I do not lie.",x:"Young politician aggressively breaking corrupt political conventions.",cf:"high"},
+  {l:"te",m:"Geetha Govindam",y:2018,c:"Vijay Govind (Vijay Deverakonda)",s:"మేడమ్ సార్ మేడమ్ అంతే.",r:"Madam sir madam anthe.",t:"She is a madam, sir, just a madam.",x:"The infatuated hero reverently describes the woman he loves.",cf:"high"},
+  {l:"te",m:"Geetha Govindam",y:2018,c:"Vijay Govind (Vijay Deverakonda)",s:"నేను చాలా మంచోడ్ని...",r:"Nenu chaala manchodni...",t:"I am a very good boy...",x:"Hero desperately defending his misunderstood innocence.",cf:"high"},
+  {l:"te",m:"Aravinda Sametha Veera Raghava",y:2018,c:"Veera Raghava (Jr. NTR)",s:"కంటికి కనపడని శత్రువుతో యుద్ధం చేయడం కష్టం.",r:"Kantiki kanapadani shatruvutho yuddham cheyadam kashtam.",t:"It is difficult to wage war with an invisible enemy.",x:"A reformed factionist reflects on the insidious nature of violence.",cf:"medium"},
+  {l:"te",m:"Aravinda Sametha Veera Raghava",y:2018,c:"Veera Raghava (Jr. NTR)",s:"కత్తి పడితే... ఎక్కడ నరకాలో తెలిసినవాడు వీరుడు.",r:"Katthi padithe... ekkada narakalo thelisinavadu veerudu.",t:"If holding a sword... the one who knows where to strike is a warrior.",x:"A philosophical dialogue about precise, controlled violence.",cf:"medium"},
+  {l:"te",m:"Bhaagamathie",y:2018,c:"Bhaagamathie (Anushka Shetty)",s:"ఎవడు పడితే వాడు రావడానికి... ఇది పబ్లిక్ ప్రాపర్టీ కాదు, భాగమతి అడ్డా!",r:"Evadu padithe vaadu raavadaniki... idi public property kaadu, Bhaagamathie adda!",t:"For anyone to come and go... this isn't public property, it's Bhaagamathie's domain!",x:"An ancient vengeful spirit asserts dominance over her haunted fort.",cf:"high"},
+  {l:"te",m:"Mahanati",y:2018,c:"Madhuravani (Samantha Ruth Prabhu)",s:"ఒక మనిషి జీవితం ఒక పుస్తకం అయితే, అందులో అన్ని పేజీలు మనకి నచ్చవు.",r:"Oka manishi jeevitham oka pusthakam aiythe, andulo anni pejilu manaki nachhavu.",t:"If a person's life is a book, we won't like all the pages in it.",x:"A journalist reflects on the tragic legendary life of Savitri.",cf:"high"},
+  {l:"te",m:"Rangasthalam",y:2018,c:"Chitti Babu (Ram Charan)",s:"సౌండ్ ఇంజనీర్ ని, వినపడదు.",r:"Sound engineer ni, vinapadadu.",t:"I am a sound engineer, I can't hear.",x:"The partially deaf hero cleverly masks his disability.",cf:"high"},
+  {l:"te",m:"Goodachari",y:2018,c:"Gopi / Agent 116 (Adivi Sesh)",s:"దేశం కోసం ప్రాణాలు ఇవ్వడానికి నేను సిద్ధం... కానీ వాళ్ళని చంపే హక్కు నాకూ ఉంది.",r:"Desam kosam pranaalu ivvadaniki nenu siddham... kaani vaallani champe hakku naaku undi.",t:"I am ready to give my life for the country... but I have the right to kill them.",x:"A framed spy swears vengeance against a terrorist syndicate.",cf:"high"},
+  {l:"te",m:"Maharshi",y:2019,c:"Rishi Kumar (Mahesh Babu)",s:"సక్సెస్ ఈజ్ నాట్ ఎ డెస్టినేషన్, ఇట్స్ ఎ జర్నీ.",r:"Success is not a destination, it's a journey.",t:"Success is not a destination, it's a journey.",x:"An ambitious CEO explains his relentless drive for achievement.",cf:"high"},
+  {l:"te",m:"Maharshi",y:2019,c:"Rishi (Mahesh Babu)",s:"ఎవరైనా అడిగితే...",r:"Evaraina adigithe...",t:"If anyone asks...",x:"Arrogant CEO casually establishing his global corporate supremacy.",cf:"high"},
+  {l:"te",m:"Jersey",y:2019,c:"Arjun (Nani)",s:"ప్రపంచంలో అందరికీ ఏదో ఒక పని ఉంటుంది, నాకు క్రికెట్ తప్ప ఇంకేం రాదు.",r:"Prapanchamlo andariki edo oka pani untundi, naaku cricket thappa inkem raadu.",t:"Everyone has something they can do, I know nothing other than cricket.",x:"An aging cricketer admits his reliance on the only skill he possesses.",cf:"high"},
+  {l:"te",m:"Jersey",y:2019,c:"Arjun (Nani)",s:"వయసొచ్చేసింది, టైం లేదు, అని అందరూ అంటారు. కానీ నాకు ఇంకో దారి లేదు.",r:"Vayasocchesindi, time ledu, ani andaru antaru. Kaani naaku inko daari ledu.",t:"Everyone says I'm too old, no time left. But I have no other path.",x:"The exhausted cricketer's rationale to try achieving his dream one last time.",cf:"high"},
+  {l:"te",m:"Ismart Shankar",y:2019,c:"Shankar (Ram Pothineni)",s:"అసలే నా బుర్రలో వేరే వాడి సిమ్ కార్డ్ ఉంది, ఏది పడితే అది చేయకండి.",r:"Asale naa burralo vere vaadi SIM card undi, edi padithe adi cheyakandi.",t:"Already there's someone else's SIM card in my brain, don't do whatever.",x:"An assassin with implanted memories warns enemies of his instability.",cf:"high"},
+  {l:"te",m:"Sye Raa Narasimha Reddy",y:2019,c:"Uyyalawada Narasimha Reddy (Chiranjeevi)",s:"గెట్ అవుట్ ఫ్రమ్ మై మదర్ ల్యాండ్!",r:"Get out from my motherland!",t:"Get out from my motherland!",x:"A 19th-century rebel screams a battle cry at British officers.",cf:"high"},
+  {l:"te",m:"Sarileru Neekevvaru",y:2020,c:"Major Ajay Krishna (Mahesh Babu)",s:"భయపడేవాడే బేరానికొస్తాడు, మన దగ్గర బేరాల్లేవమ్మా!",r:"Bhayapadevade beranikostaadu, mana daggara berallevamma!",t:"Only the one who fears comes to bargain, we have no bargains!",x:"An army major refuses to negotiate with a corrupt politician.",cf:"high"},
+  {l:"te",m:"Sarileru Neekevvaru",y:2020,c:"Major Ajay Krishna (Mahesh Babu)",s:"మీరు నాలో ఉన్న ఒక ఆర్మీ ఆఫీసర్ ని మాత్రమే చూశారు... నాలో ఉన్న ఒక మాస్ గాడిని చూడలేదు!",r:"Meeru naalo unna oka army officer ni mathrame chusharu... naalo unna oka mass gaadini chudaledu!",t:"You only saw the army officer in me... you haven't seen the mass guy inside me!",x:"A disciplined soldier drops his formal restraint to handle criminals.",cf:"high"},
+  {l:"te",m:"Ala Vaikunthapurramuloo",y:2020,c:"Bantu (Allu Arjun)",s:"గ్యాప్ ఇవ్వట్లేదు సర్, అదే వస్తుంది.",r:"Gap ivvatledu sir, ade vastundi.",t:"I'm not giving a gap sir, it just comes on its own.",x:"Bantu playfully defends his impeccable timing when striking back.",cf:"high"},
+  {l:"te",m:"Ala Vaikunthapurramuloo",y:2020,c:"Ramakrishna (Murali Sharma)",s:"అబద్ధం చెప్పేటప్పుడు...",r:"Abaddham cheppetappudu...",t:"When telling a lie...",x:"Bitter father justifying his actions while swapping babies.",cf:"high"},
+  {l:"te",m:"Pushpa: The Rise",y:2021,c:"Pushpa Raj (Allu Arjun)",s:"పుష్ప అంటే ఫ్లవర్ అనుకుంటివా? ఫైరు!",r:"Pushpa ante flower anukuntivaa? Fire-u!",t:"Did you think Pushpa is a flower? He is fire!",x:"Pushpa corrects an antagonist who assumes his name implies weakness.",cf:"high"},
+  {l:"te",m:"Pushpa: The Rise",y:2021,c:"Pushpa Raj (Allu Arjun)",s:"తగ్గేదే లే!",r:"Thaggede le!",t:"I won't back down!",x:"The smuggler asserts his stubborn refusal to submit.",cf:"high"},
+  {l:"te",m:"Pushpa: The Rise",y:2021,c:"Mangalam Srinu (Sunil)",s:"ఎవడ్రా వాడు?",r:"Evadra vaadu?",t:"Who is that guy?",x:"Powerful smuggling boss reacting in shock to Pushpa's rise.",cf:"high"},
+  {l:"te",m:"Akhanda",y:2021,c:"Akhanda (Balakrishna)",s:"శబ్దం చేస్తే...",r:"Shabdam chesthe...",t:"If you make a sound...",x:"Fierce Aghora terrifying opponents into silence.",cf:"high"},
+  {l:"te",m:"Bheemla Nayak",y:2022,c:"Bheemla Nayak (Pawan Kalyan)",s:"నేను ఇవతల ఉంటేనే చట్టం, అవతలికి వస్తే... కష్టం!",r:"Nenu ivathala untene chattam, aavathaliki vasthe... kashtam!",t:"Only while I'm on this side is it the law; if I cross over... trouble!",x:"An enraged officer warns a rich brat not to push him to break his bounds.",cf:"high"},
+  {l:"te",m:"Sita Ramam",y:2022,c:"Lieutenant Ram (Dulquer Salmaan)",s:"యుద్ధం రాసిపెట్టి ఉన్నప్పుడు, శాంతి గురించి మాట్లాడకూడదు.",r:"Yuddham raasipetti unnappudu, shanthi gurinchi matladakudadu.",t:"When war is destined, one should not speak of peace.",x:"An upright soldier explains the inevitability of conflict at the border.",cf:"high"},
+  {l:"te",m:"RRR",y:2022,c:"Alluri Sitarama Raju (Ram Charan)",s:"గురి చూడబాకు, గుండెను చూడు...",r:"Guri choodabaku, gundenu choodu...",t:"Don't look at the aim, look at the heart...",x:"A freedom fighter advises his comrade on where to strike.",cf:"high"},
+  {l:"te",m:"RRR",y:2022,c:"Komaram Bheem (Jr. NTR)",s:"మావా...",r:"Maavaa...",t:"Uncle / Brother...",x:"Tribal hero expressing a profound bond of brotherhood.",cf:"high"},
+  {l:"te",m:"K.G.F: Chapter 2",y:2022,c:"Rocky (Yash)",s:"వయలెన్స్, వయలెన్స్, వయలెన్స్! ఐ డోంట్ లైక్ ఇట్. ఐ అవాయిడ్! బట్ వయలెన్స్ లైక్స్ మీ!",r:"Violence, violence, violence! I don't like it. I avoid! But violence likes me!",t:"Violence, violence, violence! I don't like it. I avoid! But violence likes me!",x:"A feared underworld boss mockingly complains about his descent into bloodshed.",cf:"high"},
+  {l:"te",m:"K.G.F: Chapter 2",y:2022,c:"Rocky (Yash)",s:"టెల్ దెమ్ ఐ యామ్ కమింగ్...",r:"Tell them I am coming...",t:"Tell them I am coming...",x:"Underworld Don dramatically announcing his lethal arrival.",cf:"high"},
+  {l:"te",m:"Karthikeya 2",y:2022,c:"Dr. Karthikeya (Nikhil Siddhartha)",s:"ప్రాబ్లం కి సొల్యూషన్...",r:"Problem ki solution...",t:"The solution to the problem...",x:"Doctor confidently approaching divine mysteries with science.",cf:"high"},
+  {l:"te",m:"Dasara",y:2023,c:"Dharani (Nani)",s:"ఏట్లైతే గట్లాయె...",r:"Etlaithe gatlaaye...",t:"Whatever happens, happens...",x:"Drunken but fearless village youth preparing for a massive brawl.",cf:"high"},
+  {l:"te",m:"Waltair Veerayya",y:2023,c:"Waltair Veerayya (Chiranjeevi)",s:"రికార్డ్స్ లో నా పేరు ఉండటం కాదు, నా పేరు మీదే రికార్డ్స్ ఉంటాయి.",r:"Records lo naa peru undatam kaadu, naa peru meede records untayi.",t:"My name isn't just in the records, the records exist in my name.",x:"A legendary smuggler establishes his supreme dominance.",cf:"high"},
+  {l:"te",m:"Waltair Veerayya",y:2023,c:"Veerayya (Chiranjeevi)",s:"వాడు నా తమ్ముడు...",r:"Vaadu naa thammudu...",t:"He is my younger brother...",x:"Smuggler's emotional revelation regarding a strict police officer.",cf:"high"},
+  {l:"te",m:"Bhagavanth Kesari",y:2023,c:"Bhagavanth Kesari (Balakrishna)",s:"గ్రౌండ్ ఫ్లోర్ బలిసిందా...",r:"Ground floor balisindaa...",t:"Has your ground floor gotten fat...",x:"Older hero mocking the arrogance of a young villain.",cf:"high"},
+  {l:"te",m:"Salaar: Part 1 – Ceasefire",y:2023,c:"Deva (Prabhas)",s:"ప్లీజ్, ఐ కైండ్లీ రిక్వెస్ట్!",r:"Please, I kindly request!",t:"Please, I kindly request!",x:"A lethal warrior politely begs enemies to stop, before slaughtering them.",cf:"high"},
+  {l:"te",m:"Salaar: Part 1 – Ceasefire",y:2023,c:"Vardharaja Mannar (Prithviraj)",s:"వాడు నా ఫ్రెండ్...",r:"Vaadu naa friend...",t:"He is my friend...",x:"Exiled prince claiming the terrifying loyalty of his ally.",cf:"high"},
+  {l:"te",m:"Guntur Kaaram",y:2024,c:"Ramana (Mahesh Babu)",s:"ఈ రమణ గాడి గురించి తెలియాలంటే... ఊళ్లో వాళ్ళని అడుగు చెప్తారు.",r:"Ee Ramana gaadi gurinchi teliyalante... oollo vaallani adugu cheptaru.",t:"To know about this Ramana... ask the village folks, they will tell you.",x:"A volatile, street-smart hero warns a politician about his reputation.",cf:"medium"},
+
+  // ===== HINDI =====
+  {l:"hi",m:"Anand",y:1971,c:"Anand (Rajesh Khanna)",s:"बाबू मोशाय, जिंदगी बड़ी होनी चाहिए, लंबी नहीं।",r:"Babu moshai, zindagi badi honi chahiye, lambi nahi.",t:"Babu moshai, life should be big, not long.",x:"A terminally ill but endlessly cheerful man shares his philosophy.",cf:"high"},
+  {l:"hi",m:"Amar Prem",y:1972,c:"Anand Babu (Rajesh Khanna)",s:"पुष्पा, आई हेट टीयर्स।",r:"Pushpa, I hate tears.",t:"Pushpa, I hate tears.",x:"The hero gently consoles a weeping woman to mask his own heartbreak.",cf:"high"},
+  {l:"hi",m:"Zanjeer",y:1973,c:"Inspector Vijay (Amitabh Bachchan)",s:"जब तक बैठने को न कहा जाए शराफत से खड़े रहो।",r:"Jab tak baithne ko na kaha jaye sharafat se khade raho.",t:"Stand decently until you are asked to sit.",x:"An honest angry cop asserts authority over a mafia boss.",cf:"high"},
+  {l:"hi",m:"Deewaar",y:1975,c:"Ravi (Shashi Kapoor)",s:"मेरे पास माँ है।",r:"Mere paas maa hai.",t:"I have a mother.",x:"Hero countering his brother's flaunting of wealth with his moral grounding.",cf:"high"},
+  {l:"hi",m:"Sholay",y:1975,c:"Gabbar Singh (Amjad Khan)",s:"अरे ओ सांभा, कितने आदमी थे?",r:"Are o Samba, kitne aadmi the?",t:"Hey Samba, how many men were there?",x:"Villain interrogating his men after their humiliating defeat.",cf:"high"},
+  {l:"hi",m:"Sholay",y:1975,c:"Veeru (Dharmendra)",s:"बसंती, इन कुत्तों के सामने मत नाचना।",r:"Basanti, in kutton ke samne mat nachna.",t:"Basanti, don't dance in front of these dogs.",x:"A captive hero begging his lover not to humiliate herself for his life.",cf:"high"},
+  {l:"hi",m:"Don",y:1978,c:"Don (Amitabh Bachchan)",s:"डॉन को पकड़ना मुश्किल ही नहीं, नामुमकिन है।",r:"Don ko pakadna mushkil hi nahi, namumkin hai.",t:"Catching Don is not just difficult, it's impossible.",x:"Elusive criminal establishing his sheer invincibility to the police.",cf:"high"},
+  {l:"hi",m:"Kaalia",y:1981,c:"Kaalia (Amitabh Bachchan)",s:"हम जहाँ खड़े हो जाते हैं, लाइन वहीं से शुरू होती है।",r:"Hum jahan khade ho jaate hain, line wahin se shuru hoti hai.",t:"Wherever I stand, the line starts from there.",x:"A confident convict establishing his dominance in a prison cell.",cf:"high"},
+  {l:"hi",m:"Namak Halaal",y:1982,c:"Arjun Singh (Amitabh Bachchan)",s:"आई कैन टॉक इंग्लिश, आई कैन वॉक इंग्लिश... बिकॉज़ इंग्लिश इज़ ए वेरी फनी लैंग्वेज।",r:"I can talk English, I can walk English... because English is a very funny language.",t:"I can talk English, I can walk English... because English is a very funny language.",x:"A rural job applicant hilariously bluffs his way through an interview.",cf:"high"},
+  {l:"hi",m:"Mr. India",y:1987,c:"Mogambo (Amrish Puri)",s:"मोगैंबो खुश हुआ।",r:"Mogambo khush hua.",t:"Mogambo is pleased.",x:"Megalomaniacal villain expressing his rare satisfaction.",cf:"high"},
+  {l:"hi",m:"Shahenshah",y:1988,c:"Shahenshah (Amitabh Bachchan)",s:"रिश्ते में तो हम तुम्हारे बाप लगते हैं, नाम है शहंशाह।",r:"Rishte mein toh hum tumhare baap lagte hain, naam hai Shahenshah.",t:"By relationship I am your father, my name is Shahenshah.",x:"Vigilante hero delivering his swaggering iconic introduction.",cf:"high"},
+  {l:"hi",m:"Agneepath",y:1990,c:"Vijay Dinanath Chauhan (Amitabh Bachchan)",s:"विजय दीनानाथ चौहान, पूरा नाम... बाप का नाम दीनानाथ चौहान, माँ का नाम सुहासिनी चौहान।",r:"Vijay Dinanath Chauhan, poora naam... baap ka naam Dinanath Chauhan, maa ka naam Suhasini Chauhan.",t:"Vijay Dinanath Chauhan, full name... father Dinanath Chauhan, mother Suhasini Chauhan.",x:"A gangster unapologetically introduces himself to the police with pride.",cf:"high"},
+  {l:"hi",m:"Damini",y:1993,c:"Govind (Sunny Deol)",s:"तारीख पर तारीख, तारीख पर तारीख...",r:"Tareekh par tareekh, tareekh par tareekh...",t:"Date after date, date after date...",x:"Explosive courtroom outburst against the endlessly delayed justice system.",cf:"high"},
+  {l:"hi",m:"Baazigar",y:1993,c:"Ajay (Shah Rukh Khan)",s:"हार कर जीतने वाले को बाज़ीगर कहते हैं।",r:"Haar kar jeetne wale ko baazigar kehte hain.",t:"The one who wins by losing is called a gambler.",x:"Hero revealing his calculated, high-stakes revenge strategy.",cf:"high"},
+  {l:"hi",m:"Darr",y:1993,c:"Rahul (Shah Rukh Khan)",s:"आई लव यू, क-क-क-किरन।",r:"I love you, K-K-K-Kiran.",t:"I love you, K-K-K-Kiran.",x:"An obsessive stalker cementing his terrifying, stuttering signature phrase.",cf:"high"},
+  {l:"hi",m:"Andaz Apna Apna",y:1994,c:"Teja (Paresh Rawal)",s:"तेजा मैं हूँ, मार्क इधर है।",r:"Teja main hoon, mark idhar hai.",t:"I am Teja, the mark is here.",x:"Hilarious identity crisis between twin brothers.",cf:"high"},
+  {l:"hi",m:"Karan Arjun",y:1995,c:"Durga (Rakhee Gulzar)",s:"मेरे करन अर्जुन आएंगे।",r:"Mere Karan Arjun aayenge.",t:"My Karan and Arjun will come.",x:"A grieving mother predicting the reincarnation of her murdered sons.",cf:"high"},
+  {l:"hi",m:"Dilwale Dulhania Le Jayenge",y:1995,c:"Raj (Shah Rukh Khan)",s:"बड़े बड़े देशों में ऐसी छोटी छोटी बातें होती रहती हैं, सेनोरिटा।",r:"Bade bade deshon mein aisi chhoti chhoti baatein hoti rehti hain, Senorita.",t:"In big countries, such small things keep happening, Senorita.",x:"Hero playfully comforting the heroine to lighten a tense situation.",cf:"high"},
+  {l:"hi",m:"Kuch Kuch Hota Hai",y:1998,c:"Rahul (Shah Rukh Khan)",s:"कुछ कुछ होता है अंजलि, तुम नहीं समझोगी।",r:"Kuch kuch hota hai Anjali, tum nahin samjhogi.",t:"Something happens Anjali, you wouldn't understand.",x:"The hero telling his tomboy best friend she can't comprehend romance.",cf:"high"},
+  {l:"hi",m:"Hera Pheri",y:2000,c:"Baburao Ganpatrao Apte (Paresh Rawal)",s:"ये बाबूराव का स्टाइल है।",r:"Ye Baburao ka style hai.",t:"This is Baburao's style.",x:"A quirky landlord justifying his eccentric behavior.",cf:"high"},
+  {l:"hi",m:"Mohabbatein",y:2000,c:"Narayan Shankar (Amitabh Bachchan)",s:"परंपरा, प्रतिष्ठा, अनुशासन... ये इस गुरुकुल के तीन स्तंभ हैं।",r:"Parampara, pratishtha, anushasan... ye is gurukul ke teen stambh hain.",t:"Tradition, prestige, discipline... these are the three pillars.",x:"A strict headmaster outlining the absolute rules of his college.",cf:"high"},
+  {l:"hi",m:"Lagaan",y:2001,c:"Bhuvan (Aamir Khan)",s:"शर्त मंज़ूर है।",r:"Shart manzoor hai.",t:"The condition is accepted.",x:"A village leader accepting a cricket wager against the British empire.",cf:"high"},
+  {l:"hi",m:"Kabhi Khushi Kabhie Gham",y:2001,c:"Yashvardhan Raichand (Amitabh Bachchan)",s:"कह दिया ना, बस कह दिया।",r:"Keh diya na, bas keh diya.",t:"I said it, that's it.",x:"A patriarchal billionaire signaling his word is absolute law.",cf:"high"},
+  {l:"hi",m:"Gadar: Ek Prem Katha",y:2001,c:"Tara Singh (Sunny Deol)",s:"हमारा हिंदुस्तान ज़िंदाबाद था, ज़िंदाबाद है, और ज़िंदाबाद रहेगा!",r:"Hamara Hindustan zindabad tha, zindabad hai, aur zindabad rahega!",t:"Our India was great, is great, and will remain great!",x:"Fierce patriotic roar defying anti-India sentiments across the border.",cf:"high"},
+  {l:"hi",m:"Devdas",y:2002,c:"Devdas (Shah Rukh Khan)",s:"बाबूजी ने कहा गाँव छोड़ दो...",r:"Babuji ne kaha gaon chhod do...",t:"Father said leave the village...",x:"Tragic lover reciting everything he was forced to abandon.",cf:"high"},
+  {l:"hi",m:"Devdas",y:2002,c:"Devdas (Shah Rukh Khan)",s:"कौन कम्बख्त बर्दाश्त करने को पीता है? हम तो पीते हैं कि यहाँ पर बैठ सकें, तुम्हें देख सकें, तुम्हें बर्दाश्त कर सकें।",r:"Kaun kambakht bardaasht karne ko peeta hai? Hum toh peete hain ki yahan par baith sakein, tumhein dekh sakein, tumhein bardaasht kar sakein.",t:"Who drinks to tolerate it? I drink so I can sit here, look at you, tolerate you.",x:"A tragically broken alcoholic insulting a courtesan while masking his pain.",cf:"high"},
+  {l:"hi",m:"Munna Bhai M.B.B.S.",y:2003,c:"Munna (Sanjay Dutt)",s:"टेंशन लेने का नहीं, सिर्फ देने का।",r:"Tension lene ka nahi, sirf dene ka.",t:"Don't take tension, only give it.",x:"Laid-back mobster's philosophy on handling life's pressures.",cf:"high"},
+  {l:"hi",m:"Kal Ho Naa Ho",y:2003,c:"Aman Mathur (Shah Rukh Khan)",s:"आज... आज एक हँसी और बाँट लो, आज एक दुआ और माँग लो... क्या पता, कल हो ना हो।",r:"Aaj... aaj ek hasi aur baant lo, aaj ek dua aur maang lo... kya pata, kal ho naa ho.",t:"Today share one more smile, ask for one more prayer... who knows, there may be no tomorrow.",x:"A dying man encouraging others to live in the present.",cf:"high"},
+  {l:"hi",m:"Chak De! India",y:2007,c:"Kabir Khan (Shah Rukh Khan)",s:"सत्तर मिनट, सत्तर मिनट हैं तुम्हारे पास।",r:"Sattar minute, sattar minute hain tumhare paas.",t:"Seventy minutes, you have seventy minutes.",x:"A disgraced coach delivering a motivational speech before a World Cup final.",cf:"high"},
+  {l:"hi",m:"Om Shanti Om",y:2007,c:"Om Prakash (Shah Rukh Khan)",s:"एक चुटकी सिंदूर की कीमत तुम क्या जानो रमेश बाबू।",r:"Ek chutki sindoor ki keemat tum kya jano Ramesh babu.",t:"What do you know the value of a pinch of vermilion, Ramesh babu.",x:"Meta-Bollywood monologue defending the sanctity of marriage.",cf:"high"},
+  {l:"hi",m:"Jab We Met",y:2007,c:"Geet (Kareena Kapoor)",s:"मैं अपनी फेवरेट हूँ।",r:"Main apni favorite hoon.",t:"I am my own favorite.",x:"A wildly self-loving girl explaining her confident outlook.",cf:"high"},
+  {l:"hi",m:"3 Idiots",y:2009,c:"Rancho (Aamir Khan)",s:"ऑल इज़ वेल।",r:"All is well.",t:"All is well.",x:"Simple mantra to trick the human heart into overcoming fear.",cf:"high"},
+  {l:"hi",m:"Wanted",y:2009,c:"Radhe (Salman Khan)",s:"एक बार जो मैंने कमिटमेंट कर दी, उसके बाद तो मैं खुद की भी नहीं सुनता।",r:"Ek baar jo maine commitment kar di, uske baad toh main khud ki bhi nahi sunta.",t:"Once I make a commitment, after that I don't even listen to myself.",x:"Undercover cop's absolute promise to finish a job.",cf:"high"},
+  {l:"hi",m:"Dabangg",y:2010,c:"Chulbul Pandey (Salman Khan)",s:"थप्पड़ से डर नहीं लगता साहब, प्यार से लगता है।",r:"Thappar se darr nahi lagta sahab, pyar se lagta hai.",t:"I'm not scared of a slap sir, I am scared of love.",x:"Tough cop showing rare vulnerability to the woman he loves.",cf:"high"},
+  {l:"hi",m:"The Dirty Picture",y:2011,c:"Silk (Vidya Balan)",s:"फिल्में सिर्फ तीन चीज़ों की वजह से चलती हैं... एंटरटेनमेंट, एंटरटेनमेंट, एंटरटेनमेंट।",r:"Filmein sirf teen cheezon ki wajah se chalti hain... entertainment, entertainment, entertainment.",t:"Films run only because of three things... entertainment, entertainment, entertainment.",x:"Defiant actress asserting her grip on the audience's desires.",cf:"high"},
+  {l:"hi",m:"Singham",y:2011,c:"Bajirao Singham (Ajay Devgn)",s:"आता माझी सटकली।",r:"Aata majhi satakli.",t:"Now I have lost my temper.",x:"Honest cop declaring he has reached his breaking point.",cf:"high"},
+  {l:"hi",m:"Gangs of Wasseypur",y:2012,c:"Faizal Khan (Nawazuddin Siddiqui)",s:"बाप का, दादा का, भाई का, सबका बदला लेगा रे तेरा फैज़ल।",r:"Baap ka, dada ka, bhai ka, sabka badla lega re tera Faizal.",t:"Father's, grandfather's, brother's, your Faizal will take everyone's revenge.",x:"Newly crowned mafia boss vowing generational vengeance.",cf:"high"},
+  {l:"hi",m:"Gangs of Wasseypur",y:2012,c:"Ramadhir Singh (Tigmanshu Dhulia)",s:"तुमसे ना हो पाएगा।",r:"Tumse na ho payega.",t:"You won't be able to do it.",x:"A politician coldly dismissing his own son's incompetence.",cf:"high"},
+  {l:"hi",m:"Yeh Jawaani Hai Deewani",y:2013,c:"Bunny (Ranbir Kapoor)",s:"कहीं पे पहुँचने के लिए कहीं से निकलना बहुत ज़रूरी होता है।",r:"Kahin pe pahunchne ke liye kahin se nikalna bahut zaroori hota hai.",t:"To reach somewhere, it is very important to leave from somewhere.",x:"A traveler justifying his need to keep moving forward.",cf:"high"},
+  {l:"hi",m:"Queen",y:2014,c:"Rani (Kangana Ranaut)",s:"मेरा सेंस ऑफ़ ह्यूमर बहुत अच्छा है, आपको धीरे-धीरे पता चलेगा।",r:"Mera sense of humor bahut achha hai, aapko dheere-dheere pata chalega.",t:"My sense of humor is very good, you will realize it slowly.",x:"A naive bride nervously trying to assert confidence in a foreign country.",cf:"high"},
+  {l:"hi",m:"Mary Kom",y:2014,c:"Mary Kom (Priyanka Chopra)",s:"कभी किसी को इतना मत डराओ कि डर ही खत्म हो जाए।",r:"Kabhi kisi ko itna mat darao ki darr hi khatam ho jaye.",t:"Never scare someone so much that their fear completely disappears.",x:"Fierce boxer warning a corrupt official who pushed her too far.",cf:"high"},
+  {l:"hi",m:"Bajirao Mastani",y:2015,c:"Bajirao (Ranveer Singh)",s:"बाजीराव ने मस्तानी से मोहब्बत की है, अय्याशी नहीं।",r:"Bajirao ne Mastani se mohabbat ki hai, aiyashi nahi.",t:"Bajirao has loved Mastani, not engaged in debauchery.",x:"Maratha general fiercely defending the dignity of his romance.",cf:"high"},
+  {l:"hi",m:"Pink",y:2016,c:"Deepak Sehgal (Amitabh Bachchan)",s:"'ना' सिर्फ एक शब्द नहीं, अपने आप में एक पूरा वाक्य है। नो मीन्स नो।",r:"'Na' sirf ek shabd nahi, apne aap mein ek poora vakya hai. No means no.",t:"'No' is not just a word, it is a complete sentence. No means no.",x:"A lawyer establishing absolute sexual consent in a courtroom defense.",cf:"high"},
+  {l:"hi",m:"Raees",y:2017,c:"Raees (Shah Rukh Khan)",s:"बनिये का दिमाग और मियाँभाई की डेरिंग।",r:"Baniye ka dimaag aur miyanbhai ki daring.",t:"A merchant's brain and a Miya Bhai's daring.",x:"Bootlegger explaining his lethal combination of acumen and courage.",cf:"high"},
+  {l:"hi",m:"Padmaavat",y:2018,c:"Maharawal Ratan Singh (Shahid Kapoor)",s:"राजपूती कंगन में उतनी ही ताकत है, जितनी राजपूती तलवार में।",r:"Rajputi kangan mein utni hi taqat hai, jitni Rajputi talwar mein.",t:"A Rajput's bangle has as much strength as a Rajput's sword.",x:"A king asserting that Rajput women are as fierce as the men.",cf:"high"},
+  {l:"hi",m:"Uri: The Surgical Strike",y:2019,c:"Major Vihaan (Vicky Kaushal)",s:"हाउज़ द जोश? हाई सर!",r:"How's the josh? High sir!",t:"How's the passion? High sir!",x:"Military commander motivating his special forces before a covert strike.",cf:"high"},
+  {l:"hi",m:"Gully Boy",y:2019,c:"Murad (Ranveer Singh)",s:"अपना टाइम आएगा।",r:"Apna time aayega.",t:"Our time will come.",x:"A struggling slum dweller using rap to declare his rise to success.",cf:"high"},
+  {l:"hi",m:"Pushpa: The Rise",y:2021,c:"Pushpa (Allu Arjun)",s:"पुष्पा नाम सुनकर फ्लावर समझे क्या? फायर है मैं।",r:"Pushpa naam sunkar flower samjhe kya? Fire hai main.",t:"Did you think Pushpa is a flower after hearing the name? I am fire.",x:"Smuggler correcting those who underestimate him based on his name.",cf:"high"},
+  {l:"hi",m:"Shershaah",y:2021,c:"Capt. Vikram Batra (Sidharth Malhotra)",s:"ये दिल मांगे मोर!",r:"Yeh dil maange more!",t:"This heart wants more!",x:"A war hero using an ad slogan as his triumphant military success code.",cf:"high"},
+  {l:"hi",m:"Jawan",y:2023,c:"Vikram Rathore (Shah Rukh Khan)",s:"बेटे को हाथ लगाने से पहले बाप से बात कर।",r:"Bete ko haath lagane se pehle baap se baat kar.",t:"Before laying a hand on the son, talk to the father.",x:"A formidable father violently stepping in to protect his cornered son.",cf:"high"}
+];
+
+function eraOf(y) {
+  if (y < 1980) return "pre1980";
+  if (y < 1990) return "1980s";
+  if (y < 2000) return "1990s";
+  if (y < 2010) return "2000s";
+  if (y < 2020) return "2010s";
+  return "2020s";
+}
+const ERA_LABEL = {pre1980:"Pre-1980", "1980s":"1980s", "1990s":"1990s", "2000s":"2000s", "2010s":"2010s", "2020s":"2020s"};
+const ERA_ORDER = ["pre1980","1980s","1990s","2000s","2010s","2020s"];
+
+let state = { lang: "te", search: "", era: "" };
+
+function render() {
+  const list = document.getElementById("list");
+  const count = document.getElementById("count");
+  const q = state.search.toLowerCase().trim();
+  const filtered = D.filter(d => {
+    if (d.l !== state.lang) return false;
+    if (state.era && eraOf(d.y) !== state.era) return false;
+    if (q) {
+      const hay = (d.m + " " + d.c + " " + d.t + " " + d.r + " " + d.s + " " + d.x).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  count.textContent = filtered.length + " dialogue" + (filtered.length === 1 ? "" : "s");
+
+  // Group by era
+  const byEra = {};
+  filtered.forEach(d => {
+    const e = eraOf(d.y);
+    (byEra[e] = byEra[e] || []).push(d);
+  });
+
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="empty">No matches. Try clearing filters.</div>';
+    return;
+  }
+
+  let html = "";
+  ERA_ORDER.forEach(era => {
+    if (!byEra[era]) return;
+    byEra[era].sort((a,b) => a.y - b.y || a.m.localeCompare(b.m));
+    html += `<details class="era" open><summary>${ERA_LABEL[era]} · ${byEra[era].length}</summary>`;
+    byEra[era].forEach(d => {
+      html += `<div class="card">
+        <div class="card-head">
+          <div class="movie">${escape(d.m)} <span class="year">· ${d.y}</span></div>
+          <span class="badge ${d.cf}">${d.cf}</span>
+        </div>
+        <div class="script ${d.l}">${escape(d.s)}</div>
+        <div class="roman">${escape(d.r)}</div>
+        <div class="translation">${escape(d.t)}</div>
+        <div class="meta"><strong>${escape(d.c)}</strong></div>
+        <div class="context">${escape(d.x)}</div>
+      </div>`;
+    });
+    html += `</details>`;
+  });
+  list.innerHTML = html;
+}
+
+function escape(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+document.querySelectorAll(".tab").forEach(t => {
+  t.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+    t.classList.add("active");
+    state.lang = t.dataset.lang;
+    render();
+  });
+});
+document.getElementById("search").addEventListener("input", e => { state.search = e.target.value; render(); });
+document.getElementById("era").addEventListener("change", e => { state.era = e.target.value; render(); });
+render();
+</script>
+</body>
+</html>
